@@ -1,0 +1,44 @@
+module tb;
+  
+  bit a ;  // store 1 bit info
+  
+  byte z ; // 8 bit signed info
+  
+  shortint x;   //16 bit value ranging from -65536 to 65536
+  
+  int y ;  //32 bit signed integer
+  
+  longint b ;  //64 bit signed datatype
+  
+  initial begin 
+    
+    // all dataypes by default store zero value until they get assigned
+    $display(" bit a = %0b" ,a);
+    $display(" byte z = %0h" ,z);
+    $display(" shortint x = 0x%0h" ,x);
+    $display(" int y = 0x%0h" ,y);
+    $display(" longtint b = 0x%0h" ,b);
+    
+    a = 1;
+    #5;
+    z = 2**7 ;  //assigning 128
+    #5;
+    x = 2**15; 
+    #5;
+    y = 2**32-1;
+    #5;
+    b = 2**63;
+    
+    $display(" bit a = %0b" , a);
+    
+    $display(" [%0t] byte z = 0x%0h or %0d " ,$time, z,z);
+    
+    $display(" [%0t] shortint x = 0x%0h or %0d " ,$time, x,x);
+    
+    $display(" [%0t] int y = 0x%0h or %0d " ,$time, y ,y);
+    
+    $display(" [%0t] int b = 0x%0h or %0d " ,$time, b ,b);
+    
+    $finish;
+  end
+endmodule
