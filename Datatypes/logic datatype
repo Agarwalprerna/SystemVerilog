@@ -1,0 +1,21 @@
+   
+module tb;
+  logic [3:0] my_data;
+  logic en;      // can have any 4 state - 1,0,X,Z
+  
+  
+  //logic datatype can be driven in initial /always block
+  
+  initial begin
+    
+    $dumpfile("file.vcd");
+    $dumpvars(1);
+    
+    $display("my data = 0x%0h , en = %0b" , my_data , en);
+    my_data = 4'hB;   //assigning new value to variable mydata
+    
+    $display("my data = 0x%0h , en = %0b" , my_data , en);
+    
+  end
+  
+endmodule
