@@ -1,0 +1,50 @@
+module tb;
+  string name1 = "prerna";
+  string name2 = "agarwal";
+ 
+  
+  initial begin
+      
+    string old;
+    old = name2;
+    
+    if(name1 == name2)                //string equality
+      $display("%s is equal to %s" , name1 , name2);
+    
+    if(name1 != name2)
+      $display("%s is not equal to %s" , name1 , name2);
+    
+    if( name1 > name2)
+      $display("%s is greator than %s" , name1 , name2);
+           
+    $display("concantenated string => %s" , { name1, " " , name2});
+    $display("string Replication => %s" , {3{name1}});
+    
+    $display(" ASCII charachter of index 2 in %s => %c" ,name1, name1[2]);
+    
+    
+    //print string length
+    $display(" length of %s => %d" , name1 , name1.len());
+    
+    
+
+//     //replace any ith charachter in name2
+
+    name2.putc(4 ,"L");
+    $display("before = %s => after %s" , old , name2);
+    
+//     // get ascii value and charachter at index 2 of name2
+    $display(" name2.getc(2) => %s(%d) " , old.getc(2) , old.getc(2));
+    
+    
+    
+//     //comapre name1 and name2 , will return value
+    $display(" string comparison of %s and %s => %0d" , name1, old , name1.compare(old));
+    
+//     //substring formation 
+    $display(" name2.substr(2,6) => %s" ,name2.substr(2,6));
+    
+    
+    
+  end
+endmodule
