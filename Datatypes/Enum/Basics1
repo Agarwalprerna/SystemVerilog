@@ -1,0 +1,54 @@
+//ENUM defines a set of named constant
+
+module tb;
+  
+  //way1
+  typedef enum {GREEN , RED ,YELLOW , BLUE} color1; //default value GREEN =0 , RED = 1 , YEllOW = 2 , BLUE = 3
+  
+  // way2 NAMED CONSTANT = value
+  typedef enum{ PINK = 2 , ORANGE = 4 , SKY} color2;   //SKY = 5
+  //generate N NAMED CONSTANT
+  typedef enum{ BLACK[3]} color3;  //BLACK0 = 0 , BLACK1 =1 , BLACK2 =2
+  
+  //NAMED[N] = value
+  typedef enum{ RED[4] = 6} color4;  //RED0 = 6 , RED1 = 7 , RED2 = 8 , RED3 = 9
+  
+  //NAMED[x:y]
+  
+  typedef enum {YELLOW[2:5]} color5;  //YELLOW2 = 0 , YELLOW3 = 1 , YELLOW4 = 2 , YELLOW5 = 3
+  
+  //NAMED[x:y] = value
+  typedef enum{WHITE[1:3] = 4} color6;  //WHITE1 = 4 , WHITE2 = 5 , WHITE3 = 6
+  
+  
+  initial begin
+    //create new variables for each enumerated styles
+    color1 C1;
+    color2 C2;
+    color3 C3;
+    color4 C4;
+    color5 C5;
+    color6 C6;
+    
+    
+    //assiging value to each variable
+    C1 = YELLOW;  
+    $display(" color = %0d , name = %s" , C1 , C1.name());
+    
+     C2 = SKY;  
+    $display(" color = %0d , name = %s" , C2, C2.name());
+    
+    C3 = BLACK2;  
+    $display(" color = %0d , name = %s" , C3 , C3.name());
+    
+    C4 = RED3 ; 
+    $display(" color = %0d , name = %s" , C4 , C4.name());
+    
+    C5 = YELLOW4;  
+    $display(" color = %0d , name = %s" , C5, C5.name());
+    
+    C6 = WHITE2;  
+    $display(" color = %0d , name = %s" , C6 , C6.name());
+    
+  end
+endmodule
