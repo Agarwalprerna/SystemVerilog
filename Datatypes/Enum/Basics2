@@ -1,0 +1,20 @@
+//Do while loop for traversing across all the members in enum variable , NO FOR LOOP
+
+typedef enum{ RED , YELLOW , BLACK} colors;
+
+module tb;
+  initial begin
+    colors color;  //variable as a color
+
+    color = color.first();    //assigning value to variable
+
+do 
+  begin
+    $display(" color = %s , %0d" , color.name() , color);
+    color = color.next();
+  end
+while( color != color.first());
+    
+  end
+  
+endmodule
