@@ -1,0 +1,26 @@
+//This code demonstrates that SystemVerilog enums are strongly typed objects with built-in introspection and strict assignment rules, 
+//improving safety, readability, and debug capability over plain vectors.
+
+typedef enum bit [1:0] {RED, YELLOW, GREEN} e_light;
+
+module tb;
+  e_light light;
+
+  initial begin
+  	light = GREEN;
+  	$display ("light = %s", light.name());
+
+  	// Invalid because of strict typing rules ,This line should generate a compile-time error in a strict simulator
+  	//light = 0;
+  	//$display ("light = %s", light.name());
+
+  	//  explicitly casting for assigning numeric value 
+    light = e_light'(2);
+  	$display ("light = %s", light.name());
+
+  	// OK. light is auto-cast to integer 
+    if (light == RED | light == 2)          //mixed comparisions
+    	$display ("light is now %s", light.name());
+
+  end
+endmodule
