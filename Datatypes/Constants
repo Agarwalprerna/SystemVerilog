@@ -1,0 +1,18 @@
+module tb;
+   
+   const int MAX_count = 5;
+  
+   int i;
+  initial begin
+  for(i = 0 ; i< MAX_count ; i++) begin
+    $display("i = %0d" ,i);
+  end
+  
+  
+  //trying to change constant value 
+    MAX_count = 10;
+  //compile time error raised
+  
+  
+  end
+endmodule
