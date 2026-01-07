@@ -1,0 +1,27 @@
+   
+  typedef struct {
+     string name;
+    int ID ;
+    byte Address;
+  }person;                 //person becomes user defined data type and can be used to create  a variable of this type
+
+module tb;
+  initial begin
+    
+    person P1 = {"john" , 54, 15};
+    person P2 = { "smith" , 20 , 16};
+    person P3;
+    
+    $display("details of person1 = %p" ,P1);
+    
+    //for copying the content
+    P3 = P2;
+    $display("details of person3 = %p" ,P3);
+    
+    //changing the details using "dot "
+    P2.name = "Roy";
+    
+    $display("person2 name = %s" , P2.name);
+    
+  end
+endmodule
