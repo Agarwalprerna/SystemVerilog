@@ -1,0 +1,36 @@
+module tb;
+
+typedef struct packed {
+    logic [3:0] id;
+    logic valid;
+    logic [2:0] num;
+} exp;
+ 
+  exp E1;
+
+initial begin
+   E1 = { 4'hA , 1'b1 , 3'b101};
+
+//display individual values
+
+    $display(" id = %0h" , E1.id);
+    $display("valid = %0b" , E1.valid);
+    $display(" num = %0b" , E1.num);
+
+
+//display entire packed structure as a single vector
+    $display(" packed expample = %0b" , E1);
+
+//assign new packed value
+    E1 = 8'b1011_1001;
+    $display(" after assignment new value:");
+
+    $display(" id = %0h" , E1.id);
+    $display("valid = %0b" , E1.valid);
+    $display(" num = %0b" , E1.num);
+
+end
+
+
+
+endmodule
