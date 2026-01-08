@@ -1,0 +1,40 @@
+
+module tb;
+  
+  bit [7:0] data;  //1D or vector array
+  bit [3:0][7:0] data2 ;  //2 D array 4x8 = 32 bit
+  bit [2:0][3:0][7:0] data3 ; //3D array 3 elements each of 32bits
+  
+  initial begin
+    data = 8'hFF;
+    data2 = 32'hFACE_CAFE;
+    data3[0] =32'hAAAA_BBBB;
+    data3[1] = 32'hCDCD_ABAB;
+    data3[2] = 32'hADED_FFFF;
+    
+
+    
+    //iterating through each bit of the vector 
+    for ( int i =0 ;i< $bits(data); i++)begin
+      $display("data[%0d] = %b" , i , data[i]);
+    end
+    
+    for ( int i =0 ;i< $size(data2); i++)begin
+      $display("data2[%0d] = %b(0x%0h)" , i , data2[i],data2[i]);   //data2[0] = 8bit info
+    end
+    
+    
+    //complete packed value in data3
+    $display("data3 = 0x%0h" , data3);
+    
+   foreach (data3[i] ) begin
+     $display("data3[%0d] = 0x%0h", i , data3[i]);
+      foreach (data3[i][j])begin
+        $display("data3[%0d][%0d] = 0x%0h", i , j,data3[i][j]);
+      end
+    end
+  
+  end
+  
+  
+endmodule
