@@ -1,0 +1,23 @@
+module tb;
+  
+   int ascend[4] ;
+   int md[2][3];
+
+  initial begin
+       
+  
+  //iterating 
+  foreach(md[i,j])begin
+    md[i][j] = i + j ;
+    $display("md[%0d][%0d] = %0d " ,i,j,md[i][j]);
+  end
+  #5
+
+  for(int j =0 ;j<$size(ascend) ; j++)begin
+    ascend[j] = $random;
+    $display("ascend[%0d] = %0d" ,  j ,ascend[j]);
+  end
+  
+  end
+  
+endmodule
