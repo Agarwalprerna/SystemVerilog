@@ -1,0 +1,21 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+       int array[6] = '{3 ,5,7 ,9, 10 , 0};
+
+    initial begin
+ 
+         array.reverse();
+         $display("reversing =. %p" , array);
+
+         array.sort();
+         $display("array in ascending order =. %p" , array);
+
+         array.rsort();
+         $display("array in descending order  =. %p" , array);
+
+         array.shuffle();
+         $display("shuffling =. %p" , array);
+  end        
+endmodule
