@@ -1,0 +1,53 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+       int array[8] = '{ 4 ,5,8 ,2 , 8 ,6,0,1};
+       int result[$];
+
+ initial begin
+     
+     result = array.find(i) with (i>4);
+     $display(" find(i) =   %p" , result);
+  
+     result = array.find_index with (item == 8);  //return index of element to be searched in the array
+     $display(" index of result[%0d] = 8", result[2]);
+
+     result = array.find_first with (item < 8 & item>6);
+     $display(" first find = %p" , result);
+
+     result = array.find_first_index(i) with (i<5);  //return index value 
+     $display("find first index = %p" , result);
+ 
+     
+     result = array.find_last with ( item<8 & item >5);
+     $display("find last :  %p " , result);
+
+
+     result = array.find_last_index(i) with (i>5);
+     $display("find last index = %p " , result);
+
+
+
+     //without "with clause expression"
+
+   //return minimum value of  element 
+     result = array.min();
+     $display(" min = %p ", result);
+
+      result = array.max();
+      $display(" max = %p ", result);
+
+    // remove duplicate values
+      result = array.unique();
+      $display(" unique array = %p ", result);  
+
+      // return array indices of all elements
+      result = array.unique_index;
+      $display(" array indexing = %p ", result);
+      
+ 
+
+end
+
+endmodule
