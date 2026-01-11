@@ -1,0 +1,21 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+       int array[6] = '{3 ,5,7 ,9, 10 , 0};
+
+    initial begin
+ 
+        $display(" sum of all the elements in the array = %0d" , array.sum());
+       
+        $display(" product of all the elements = %0d" , array.product());
+ 
+        $display("Bitwise AND of all array elements = 0x%0h" , array.and());
+
+        $display("Bitwise OR of all array elements = 0x%0h" , array.or() );
+        
+         $display(" Bitwise XOR = 0x%0h" , array.xor() );
+
+
+  end        
+endmodule
