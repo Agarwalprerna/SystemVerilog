@@ -1,0 +1,36 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+       string names[];   //dynamic array
+       string add[];
+
+initial begin
+
+       names = new[5] ; //allocating size of array
+    
+       names = '{ "roy" , "john" , "smith" , "rohan" , "alex"};
+       
+        foreach(names[i]) begin
+             $display(" names[%0d]= %s" , i , names[i]);
+        end
+ 
+       //size of array
+        $display("size of array = %0d" , names.size() );
+       
+        //copying the array
+       add = names;
+        $display(" new array : %p " , add);
+
+        //adding new item in array
+        add = new[ add.size() +1](add);  
+        add[add.size() -1 ] = "jullie" ;  //adding 
+
+        $display("updated array after adding element : %p" , add);
+
+
+        //empties the array
+        names.delete();
+        $display("size of array after deleting = %0d" , names.size() );
+end
+endmodule
