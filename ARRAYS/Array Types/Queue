@@ -1,0 +1,43 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+  string fruits[$] = {"mango" , "apple" , "kiwi" , "lemon", "guava" };    // queue which stores string value
+  
+ initial begin
+
+     //size()
+     $display("no. of fruits = %0d" , fruits.size());
+
+     fruits.insert(2 ,"peach");  
+     $display(" insert peach , fruits=> %p  " , fruits);
+
+     //delete at given index
+     fruits.delete(1);
+     $display(" after deletion , fruits=> %p" , fruits);
+
+      //pop out at the front
+      $display("pop %s , fruits => %p" , fruits.pop_front() ,fruits );
+    
+       //push_front 
+      fruits.push_front("apricot");
+      $display(" after adding new element , fruits => %p" , fruits);
+  
+       //pop_back() - pop out element from the back
+       $display(" pop %s , fruits=> %p" ,fruits.pop_back() ,  fruits);
+  
+       //push_back()
+       fruits.push_back("plum");
+       $display(" after adding element at the back , fruits=> %p" , fruits );
+       
+      $display ("Removing first element , fruits = %p", fruits[1:$]);
+    
+       //delete complete Queue
+       fruits = {};
+       $display(" delete complete queue => %p" , fruits );
+
+     
+
+        
+  end
+endmodule
