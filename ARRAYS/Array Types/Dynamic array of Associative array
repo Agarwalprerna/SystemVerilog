@@ -1,0 +1,26 @@
+`timescale 1ns/1ps
+
+module exmtb;
+  
+  //create asociative array 
+     int fruits[][string] ; 
+
+initial begin
+      //dynamic array with size 2
+
+       fruits = new[2];
+     
+       //initialize associative array inside each dynamic array index
+       fruits[0] = '{ "apple" :1 , "orange":3};
+       fruits[1] = '{"kiwi" :3 , "berry" : 4};
+
+
+       //iterate through each index of dynamic array
+      foreach (fruits[i]) begin
+            //iterate through each key
+         foreach(fruits[i][j])
+              $display(" fruits[%0d][%s] = %0d" , i , j , fruits[i][j] );
+      end
+end
+
+endmodule
