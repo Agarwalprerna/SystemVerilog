@@ -1,0 +1,32 @@
+`timescale 1ns/1ps
+   
+//dynamic array of string type
+  typedef string A[];
+
+module exmtb;
+  //queue of dynamic array
+      A list[$] ; 
+
+initial begin
+
+     //initializ dynamic array
+     A veg = '{"tomato" , "potato" , "ginger" , "garlic" };
+     A fruits = '{ "mango" , "kiwi" , "apple" , "guava" };
+
+    //push dynmaic array into Queue
+   list.push_back(veg) ;
+   list.push_back(fruits);
+
+    //iterate through Queue and access dynamic array as element
+    foreach(list[i]) begin
+        foreach(list[i][j] ) 
+            $display("list[%0d][%0d] = %s " , i ,j, list[i][j] );
+   end
+
+   //complete queue
+   $display("list = %p" , list) ;
+end
+
+       
+
+endmodule
