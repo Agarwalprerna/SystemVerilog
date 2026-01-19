@@ -1,0 +1,62 @@
+`timescale 1ns/1ps
+   
+module exmtb;
+
+   int  count;
+   int count2;
+   reg clk;
+   bit [7:0] data[5]  ; 
+
+initial begin
+     
+    // using forever loop
+   forever begin
+       #5 clk = ~clk;
+  end
+end
+
+
+   
+initial begin
+      clk =0;
+    
+     $display("----- while loop-----");
+     //while loop
+    while(count <10) begin
+       $display("count = %0d" , count);
+       count ++;
+    end
+     
+    $display("---------do while------");
+
+     // do while 
+    do begin
+      $display(" printed %0d" , count2);
+      count2 ++;
+    end
+    while(count2<5);
+    
+     $display("---------for loop-----");
+   //for loop
+     for ( int i =0 ; i< 5; i++) begin
+         $display("data[%0d] = %0d" ,  i , 2*i );
+     end
+
+    //foreach
+     $display("using foreach looping");
+     foreach(data[i] ) begin
+         $display(" data[%0d] = 0x%0h" , i , 2*i );
+     end
+
+
+     $display("---------repeat loop-----");
+     //no loop variable required
+
+    repeat(3)begin
+        @(posedge clk);
+         $display(" [%0t] posedge of clock detected " , $time);
+     end
+
+end
+
+endmodule
