@@ -1,0 +1,19 @@
+
+//In this example, the clock period is 20 ns, and the first posedge of clock happens at 10 ns. Next 3 posedge of clock happens at 30ns, 50ns and 70ns 
+//after which the initial block ends. So, this repeat loop successfully waits until 4 posedge of clocks are over.
+
+
+
+module tb;
+	bit clk;
+	always #10 clk = ~clk;
+
+	initial begin
+		bit [2:0] num = $random;
+
+		$display ("[%0t] Repeat loop is going to start with num = %0d", $time, num);
+		repeat (num) @(posedge clk);                                 //(num) times count the posege event 
+		$display ("[%0t] Repeat loop has finished", $time);
+		$finish;
+	end
+endmodule
