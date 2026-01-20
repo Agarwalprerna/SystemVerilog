@@ -1,0 +1,24 @@
+`timescale 1ns/1ps
+   
+module exmtb;
+
+     string arr[4] = '{"apple" , "mango" , "kiwi" , "chickoo" };
+
+
+initial begin
+
+     //multiple initialization
+      for(int i =0 , j =2 ; i<$size(arr) ; i++ )begin
+          arr[i][j] = "0";
+          $display("arr[%0d] = %s , %0dth index replaced by 0" , i , arr[i] , j);
+    end
+
+      //adding modifiers  previously j is kept constant
+    
+    for( int i =0 , j= arr[i].len() -1 ;i<$size(arr) ; i++ ,j--) begin
+          arr[i][j] = "0";
+          $display("arr[%0d] = %s , %0dth index replaced by 0" , i , arr[i] , j);
+    end
+end
+
+endmodule
