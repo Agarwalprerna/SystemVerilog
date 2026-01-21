@@ -1,0 +1,39 @@
+module exmtb;
+    int a = 5;
+
+  initial begin
+
+   /*
+    //case1 -   if 2 conditions are met
+    unique if (a == 1)
+      $display("a = 1");
+    else if (a == 5)
+      $display("a = 5");
+    else if (a > 0)
+      $display("a > 0");
+                                  //warning will arise
+    */
+
+   //case2 - No conditions are met
+     /*  
+      unique if ( a==4)
+          $display(" a is %0d" , a);
+      else if (a == 6)
+          $display( "a is %0d" ,a);
+      else
+          $display(" x is neither 6 or 5");
+        
+                        //else cluase is present so NO ERROR reported
+
+      */
+
+   //case 3 NO Conditions are met and NO ELSE clause
+       unique if( a==4) 
+           $display(" a is %0d" , a);
+       else if(a == 6)
+          $display(" a is %0d" , a);
+ 
+                           // warning  will arise 
+
+end
+endmodule
