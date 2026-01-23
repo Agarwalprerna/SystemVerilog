@@ -1,0 +1,43 @@
+
+module exmtb;
+  
+ logic [1:0] sel = 2'b01;
+
+initial begin
+     
+      //CASE 1  exact 1 match is executed 
+     /*
+     unique0 case(sel)
+          2'b01: $display("match 01");
+          2'b0?: $display("match 0?");
+           default: $display("default");
+    endcase
+     */
+
+
+       //CASE 2 more than 1 match - warning reported 
+      /*
+       unique0 case(sel)
+           2'b00: $display("match 01");
+           2'b01: $display("match 02");
+           2'b01: $display("match 03");
+           default : $display("default");
+       endcase
+
+      */
+
+     // CASE 3 No match -  NO warning reported
+      
+      unique0 case(sel)
+           2'b00: $display("match 01");
+           2'b01: $display("match 02");
+           2'b01: $display("match 03");
+           default : $display("default");
+       endcase
+
+       
+end
+
+endmodule
+  
+endmodule
