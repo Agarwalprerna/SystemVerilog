@@ -1,0 +1,30 @@
+
+module exmtb;
+  
+ logic [1:0] sel = 2'b01;
+
+initial begin
+     
+      //CASE 1  all matches are true but first wins becoz order of case matters
+     /*
+     priority case(sel)
+          2'b0?: $display("match 01");
+          2'b01: $display("match 0?");
+           default: $display("default");
+    endcase
+     
+     */
+
+       
+     // CASE 2 No match -  NO warning reported because default block is defined
+      
+      priority case(sel)
+           2'b00: $display("match 01");
+           2'b10: $display("match 02");
+           2'b11: $display("match 03");
+           default : $display("default");
+       endcase
+     
+       
+end
+endmodule
