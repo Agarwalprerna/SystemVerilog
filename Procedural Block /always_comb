@@ -1,0 +1,17 @@
+module Proce (
+     
+   input logic [3:0] a , b , 
+    input logic [1:0] opcode, output logic [3:0] result) ;
+
+
+always_comb begin
+    case(opcode)
+        2'b00: begin
+           result = a+b;
+         end
+        2'b01: result = a-b;
+        2'b10: result = a&b;
+        2'b11 : result = a|b;
+    endcase
+end
+endmodule
