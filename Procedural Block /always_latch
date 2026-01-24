@@ -1,0 +1,16 @@
+module data_selector_with_latch(
+  
+  input wire a , b,sel , enable , output reg dataout );
+
+  wire mux_out;
+  assign mux_out = sel?a:b;
+
+
+always_latch begin
+      
+      if(enable) begin
+          dataout = mux_out;
+      end
+end
+
+endmodule
