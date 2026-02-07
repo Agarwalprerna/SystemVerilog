@@ -1,0 +1,43 @@
+module exmtb;
+    semaphore key;
+
+initial begin
+   key = new(4);
+
+   fork
+       personA();
+       personB();    //all threads running parallely
+       #25
+       personA();
+   join_none
+end
+
+
+task getRoom( bit [1:0] id);  //room no. as a input
+  $display( "%0t trying to get a Room for id[%0d]..." , $time , id);
+  key.get(1);
+  $display(" %0t Room key retrieved for id[%0d]" , $time ,id);
+endtask
+
+
+task putroom( bit [1:0] id);
+  $display(" %0t leaving room id[%0d] " , $time , id);
+  key.put(1);
+  $display(" %0t Room Key put back id[%0d] " , $time , id);
+endtask
+
+
+task personA();
+   getRoom(2);
+   #20;
+   putroom(2);
+endtask
+   
+task personB();
+  #5;
+  getRoom(4);
+  #10;
+  putroom(4);
+endtask
+
+endmodule
