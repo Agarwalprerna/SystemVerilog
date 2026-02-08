@@ -1,0 +1,43 @@
+module exmtb;
+
+       mailbox mydata;
+
+initial begin
+   mydata = new() ;  //created a mailbox which holds 2 items 
+  
+
+  if(mydata) begin
+     fork
+       put_packets();
+       get_packets();
+    join_any
+  end
+
+#1000;
+$display("END of Program");    
+end
+
+  //task to put data into mailbox
+
+task put_packets();
+     integer i;
+    for( i =0 ; i<10 ; i++) begin
+      #10;
+      mydata.put(i);
+     $display("done putting packets %0d @time %0t",i,$time); 
+    end 
+endtask    
+
+//task to get data from mailbox
+task get_packets();
+
+    integer i , packet;
+
+    for(i=0; i<10 ; i++) begin
+         mydata.get(packet);
+    $display(" got Packet %0d @time %0t" , packet , $time);
+end
+endtask      
+         
+
+endmodule
