@@ -1,0 +1,38 @@
+module exmtb;
+
+   event A ;  //declaring event
+//all procedural blocks are running concurently
+
+
+//THread 1
+initial begin
+   #20 -> A;  //triggeitng 
+   $display(" %0t thread 1 triggered event A " , $time);
+end
+
+//therad 2 wait for the event to trigger
+initial begin
+
+   $display(" %0t thread 2 waiting for trigger " , $time);
+   @(A);
+   $display(" %0t thread 2 received event A triggering" , $time);
+end
+
+//thread 3 waits for the event using .triggered
+initial begin
+   
+   $display(" %0t thread 3 waiting for trigger " , $time);
+   wait(A.triggered);
+   $display(" %0t thread 3 received event A triggering" , $time);
+end
+
+endmodule
+
+
+
+//output
+  0 thread 2 waiting for trigger 
+#  0 thread 3 waiting for trigger 
+#  20 thread 1 triggered event A 
+#  20 thread 3 received event A triggering
+#  20 thread 2 received event A triggering
