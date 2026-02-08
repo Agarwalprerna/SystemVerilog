@@ -1,0 +1,55 @@
+
+
+typedef mailbox #(string) mbox;
+
+// component 1 to send messages to the mailbox
+class comp1;
+
+    //create mailbox handle;
+    mbox  names;
+
+    task send();
+       for( int i =0 ; i<3 ; i++) begin
+              string s = $sformatf("names_%0d" , i);
+            #1 $display(" %0t comp1-> put %s" , $time ,s);
+              names.put(s);
+      end
+    endtask
+
+endclass
+
+
+//component 2 to receive messages
+class comp2;
+         mbox list;  //mailbox handle;
+
+     task recieve();
+          forever begin
+               string s;
+               list.get(s);
+               $display("%0t comp2-> got %s" , $time , s);
+           end
+     endtask
+endclass
+
+
+module exmtb;
+
+     mbox mybox = new();
+     comp1 m_comp1 = new();
+     comp2 m_comp2 = new();
+
+
+      initial begin
+          m_comp1.names = mybox ; //assiging mailbox handle
+          m_comp2.list = mybox;
+
+
+        //start both compoenents
+        fork
+             m_comp1.send();
+             m_comp2.recieve();
+        join
+      end
+
+endmodule
