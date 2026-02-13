@@ -1,0 +1,30 @@
+
+module resource_sharing_tb;
+
+//simulate 3 processes accessing shared memory.
+
+  semaphore mem_sem;
+
+  task automatic access_memory(int id);
+    $display("P%0d requesting at %0t", id, $time);
+    
+    mem_sem.get(1);   // acquire
+    $display("P%0d entered critical section at %0t", id, $time);
+    
+    #10; // simulate memory access
+    
+    $display("P%0d leaving at %0t", id, $time);
+    mem_sem.put(1);   // release
+  endtask
+
+  initial begin
+    mem_sem = new(2); // only 2 keys are available in the bucket
+    
+    fork
+      access_memory(1);  //process 1 
+      access_memory(2);  //process 2
+      access_memory(3) ;  //process 3
+    join
+  end
+
+endmodule
