@@ -1,0 +1,46 @@
+
+module resource_sharing_tb;
+
+//
+
+  semaphore mutex;
+
+  task automatic access_memory(int id);
+    $display("P%0d requesting at %0t", id, $time);
+    
+    mutex.get(1);   // acquire
+    $display("P%0d entered  at %0t", id, $time);
+    
+    #10; // simulate memory access
+    
+    $display("P%0d leaving at %0t", id, $time);
+    mutex.put(1);   // release
+  endtask
+
+  initial begin
+    mutex = new(1); // only 1 keys are available in the bucket
+    
+    //only 1 process access memory other has to wait , 
+  //after returning the key other processes are able to access
+    fork
+      access_memory(1);  //process 1 
+      access_memory(2);  //process 2
+      access_memory(3) ;  //process 3
+    join
+  end
+
+endmodule
+
+
+
+//output
+# P1 requesting at 0
+# P1 entered  at 0
+# P2 requesting at 0
+# P3 requesting at 0
+# P1 leaving at 10
+# P2 entered  at 10
+# P2 leaving at 20
+# P3 entered  at 20
+# P3 leaving at 30
+
