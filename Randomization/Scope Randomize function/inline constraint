@@ -1,0 +1,16 @@
+module tb;
+  
+   integer a , MIN;
+  
+  initial begin
+    MIN = 50;  //constraint variable
+    
+    for(int i=0 ; i< 10 ; i++) begin
+      
+      if(randomize(a) with {a<100; a>MIN;})  //inline constraint
+        $display("successful , a=%0d" ,a);
+      else
+        $display("failed");
+    end
+  end
+endmodule
