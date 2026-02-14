@@ -1,0 +1,23 @@
+module exmtb;
+
+ // Random Number Generator function without declaring random variables using rand , randc
+integer n1 , n2 ,n3 , seed;
+  
+   initial begin
+       seed = 1;
+     repeat(5) begin
+            n1 = $urandom_range(22 ,50);
+            n2 = $urandom();
+            n3 = $random(seed)%10;
+            $display(" n1 = %d , n2 = %d , n3 = %d" ,n1, n2 , n3);
+     end
+end
+endmodule          
+
+
+//output
+#  n1 =          48 , n2 =   393546790 , n3 =          -8
+#  n1 =          25 , n2 = -1128668234 , n3 =          -8
+#  n1 =          33 , n2 = -2087358906 , n3 =           2
+#  n1 =          28 , n2 =  1989931822 , n3 =          -4
+#  n1 =          41 , n2 =   864441658 , n3 =           6
