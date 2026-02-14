@@ -1,0 +1,16 @@
+
+class packet;
+  rand bit [2:0] addr1;
+  randc bit [2:0] addr2;
+endclass
+
+module rand_method;
+  initial begin
+    packet P1;
+    P1 = new();
+    repeat(10) begin
+      P1.randomize();          //object.randomize()
+      $display("addr1 = %0d , addr2 = %0d" , P1.addr1 , P1.addr2);
+    end
+  end
+endmodule
