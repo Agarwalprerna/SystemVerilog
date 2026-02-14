@@ -1,0 +1,18 @@
+
+program pre_post_rand;
+  
+  class simple;
+    function void pre_randomize();
+      $display("PRE_RANDOMIZATION");
+    endfunction
+    
+    function void post_randomize();
+      $display("POST_RANDOMIZATION");
+    endfunction
+    
+  endclass
+  
+  simple obj = new();
+  initial void'(obj.randomize());
+  
+endprogram
