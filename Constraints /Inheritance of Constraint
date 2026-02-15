@@ -1,0 +1,29 @@
+
+class packet;
+  rand bit [3:0] addr;
+  constraint addr_range {addr>5 ;}
+endclass
+
+class child extends packet;
+  constraint  addr_range { addr<5;}  // constraint block in a child class uses the same name as one in the parent class , it overrides the parent constraint block.
+endclass
+
+module example;
+  initial begin
+    packet P1;
+    child P2;
+    P1 = new();
+    P2 = new();
+    
+    repeat(5) begin
+      P1.randomize();
+      $display("P1 : addr = %0d" , P1.addr);
+    end
+    
+    repeat(5) begin
+      P2.randomize();
+      $display("P2: addr = %0d" , P2.addr);
+    end
+    
+  end
+endmodule
