@@ -38,3 +38,11 @@ program pre_post_exp;
   
  
 endprogram
+
+
+//output
+ Verilator: Walltime 6.858 s (elab=0.001, cvt=0.006, bld=6.843); cpu 0.015 s on 8 threads; alloced 30.281 MB
+BASE PRE RANDOMIZATION
+EXTEND PRE_randomization
+extend Post_randomization
+randomization done
