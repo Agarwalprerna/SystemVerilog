@@ -1,0 +1,28 @@
+
+class packet;
+  rand byte addr;
+  rand byte data;
+endclass
+
+module example;
+  initial begin
+    packet pkt = new();
+    $display("before disabling");
+    $display("addr.rand_mode() = %0d \t data.rand_mode() = %0d" , pkt.addr.rand_mode() , pkt.data.rand_mode() );
+    
+    pkt.rand_mode(0);        //disabling randomization on all classs varaibles
+    
+    pkt.randomize();
+    
+    $display("after disabling");
+    $display(" addr = %0d \t data = %0d " , pkt.addr.rand_mode() , pkt.data.rand_mode() );
+    
+  end
+endmodule
+
+//output
+before disabling
+addr.rand_mode() = 1 	 data.rand_mode() = 1
+after disabling
+ addr = 0 	 data = 0 
+- S i m u l a t i o n   R e p o r t: Verilator 5.044 2026-01-01
