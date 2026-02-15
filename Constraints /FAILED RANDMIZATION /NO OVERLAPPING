@@ -1,0 +1,26 @@
+class packet;
+  rand integer  addr;
+  constraint addr_range {addr<50 ; addr>0 ;}
+endclass
+
+//uses different names of contraint block 
+
+class child extends packet;
+  constraint  addr_range2 { addr< 100; addr>50;}  // constraint block in a child class uses the same name as one in the parent class , it overrides the parent constraint block.
+endclass
+
+module exmtb;
+  initial begin
+    //The child constraint overrides the parent constraint, 
+//and since the object is of type child, only the child constraint is active.
+
+    child P2;
+    P2 = new();
+    
+    for(int i =0 ; i<100 ; i++)
+      if(P2.randomize())
+       $display("successfull: addr = %0d" , P2.addr);
+      else
+       $display("failed");    
+  end
+endmodule
