@@ -1,0 +1,40 @@
+class base;
+  
+  function void pre_randomize;
+    $display("BASE PRE RANDOMIZATION");
+  endfunction
+  
+  function void post_randomize;
+    $display("BASE POST_RANDOMIZATION");
+  endfunction
+  
+endclass
+
+class child extends base;
+  
+  function void pre_randomize;
+    super.pre_randomize();
+    $display("EXTEND PRE_randomization");
+  endfunction
+  
+  function void post_randomize;
+    $display("extend Post_randomization");
+  endfunction
+  
+endclass
+
+
+program pre_post_exp;
+  
+   base B ;
+  child E = new();
+  
+ initial begin
+    B= E;
+    
+    if(B.randomize());
+   $display("randomization done");
+ end
+  
+ 
+endprogram
