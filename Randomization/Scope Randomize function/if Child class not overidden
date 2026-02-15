@@ -1,0 +1,28 @@
+
+class base;
+  
+  function void pre_randomize;
+    $display("BASE PRE RANDOMIZATION");
+  endfunction
+  
+  function void post_randomize;
+    $display("BASE POST_RANDOMIZATION");
+  endfunction
+  
+endclass
+
+class child extends base;
+
+endclass
+
+
+program pre_post_exp;
+
+    child E = new();
+    initial void'(E.randomize());
+ 
+endprogram
+
+//output - Base class Versions are automatically called
+BASE PRE  RANDOMIZATION
+BASE POST_RANDOMIZATION
