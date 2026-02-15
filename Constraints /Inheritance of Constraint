@@ -27,3 +27,18 @@ module example;
     
   end
 endmodule
+
+
+
+//output
+run -all
+# P1 : addr = 6
+# P1 : addr = 8
+# P1 : addr = 14
+# P1 : addr = 6
+# P1 : addr = 6
+# P2: addr = 3
+# P2: addr = 0
+# P2: addr = 4
+# P2: addr = 1
+# P2: addr = 1
