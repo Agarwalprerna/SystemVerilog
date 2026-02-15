@@ -1,0 +1,94 @@
+
+//CASE 1  Putting Virtual in either Parent Class or Child Class
+
+class base;
+  
+  function void pre_randomize;
+    $display("BASE PRE RANDOMIZATION");
+  endfunction
+  
+  virtual function void post_randomize;   
+    $display("BASE POST_RANDOMIZATION");
+  endfunction
+  
+endclass
+
+class child extends base;
+  
+  function void pre_randomize;
+    $display("EXTEND PRE_randomization");
+  endfunction
+  
+  virtual function void post_randomize;
+    $display("extend Post_randomization");
+  endfunction
+  
+endclass
+
+
+program pre_post_exp;
+  
+  base B ;
+  child E = new();
+  
+  initial begin
+    B= E;
+    
+    void'(B.randomize());
+    void'(E.randomize());
+  end
+endprogram
+
+
+//OUTPUT - SIMULATION COMPILE ERROR becuase pre_randomize() and post_randomize() are not declared as Virtual
+even if virtual defined in Child classes again it will show compile error
+
+
+
+//CASE 2  - Without Virtual keyword
+
+class base;
+  
+  function void pre_randomize;
+    $display("BASE PRE RANDOMIZATION");
+  endfunction
+  
+  function void post_randomize;
+    $display("BASE POST_RANDOMIZATION");
+  endfunction
+  
+endclass
+
+class child extends base;
+  
+  function void pre_randomize;
+    $display("EXTEND PRE_randomization");
+  endfunction
+  
+  function void post_randomize;
+    $display("extend Post_randomization");
+  endfunction
+  
+endclass
+
+
+program pre_post_exp;
+  
+  base B ;
+  child E = new();
+  
+  initial begin
+    B= E;
+    
+    void'(B.randomize());
+    void'(E.randomize());
+  end
+endprogram
+
+
+//output 
+EXTEND PRE_randomization
+extend Post_randomization
+EXTEND PRE_randomization
+extend Post_randomization
+- S i m u l a t i o n   R e p o r t: Verilator 5.044 2026-01-01
