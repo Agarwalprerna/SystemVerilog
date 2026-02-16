@@ -6,12 +6,12 @@ endclass
 //uses different names of contraint block 
 
 class child extends packet;
-  constraint  addr_range2 { addr< 100; addr>50;}  // constraint block in a child class uses the same name as one in the parent class , it overrides the parent constraint block.
+  constraint  addr_range2 { addr< 100; addr>50;}  
 endclass
 
 module exmtb;
   initial begin
-    //The child constraint overrides the parent constraint, 
+   
 //and since the object is of type child, only the child constraint is active.
 
     child P2;
