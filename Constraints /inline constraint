@@ -1,0 +1,28 @@
+class base;
+    rand integer a;
+    constraint deafult_c { a>0 ; a<100;}
+endclass
+
+program exmtb;
+  base obj;
+
+initial begin
+   obj = new();
+
+   repeat(5)
+     if(obj.randomize() with {a == 50;})
+            $display("randomize successful a = %0d" , obj.a);
+     else
+            $display("failed");
+
+end
+endprogram
+
+//output
+# randomize successful a = 50
+# randomize successful a = 50
+# randomize successful a = 50
+# randomize successful a = 50
+# randomize successful a = 50
+# ** Note: implicit $finish from program    : C:/intelFPGA/modelim_lab/exmtb.sv(15)
+#    Time: 0 ps  Iteration: 0  Instance: /exmtb
