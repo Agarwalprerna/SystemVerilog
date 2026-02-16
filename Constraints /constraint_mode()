@@ -1,0 +1,42 @@
+class base;
+  rand integer a;
+  rand integer b;
+
+   constraint a1{ a==20;}
+   
+   constraint b1{ b == 10;}
+
+endclass
+
+
+module exmtb;
+
+   base obj = new();
+  
+
+ initial begin
+
+   void' (obj.randomize() );
+   $display(" a = %0d , b = %0d " , obj.a , obj.b);
+
+  
+   obj.constraint_mode(0);
+   void'(obj.randomize() );
+    $display(" a = %0d , b = %0d " , obj.a , obj.b);
+
+   obj.constraint_mode(1);
+   void'(obj.randomize() );
+   $display(" a = %0d , b = %0d " , obj.a , obj.b);
+end
+
+endmodule
+
+
+//output
+run -all
+#  a = 20 , b = 10 
+#  a = 117030553 , b = -896291079 
+#  a = 20 , b = 10 
+
+
+   
