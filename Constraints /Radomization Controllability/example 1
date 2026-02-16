@@ -1,0 +1,81 @@
+`define MAX_D 100
+`define MIN_D 50
+
+class base;
+ rand integer a;
+ integer MIN,MAX;
+  constraint range{ a< MAX ; a>MIN; }
+
+  function void pre_randomize();
+   this.MIN = `MIN_D;
+   this.MAX = `MAX_D;
+
+   $display("pre randomize : MIN = %0d , MAX = %0d" , MIN , MAX);
+
+  // we can assign macros values without defining function
+   //integer MIN = `MIN_D;
+    //integer MAX = `MAX_D;
+   
+  endfunction
+
+endclass
+
+program exmtb;
+
+  base obj;
+
+initial begin
+  obj = new();
+
+  for(int i =0 ;i<20;i++) 
+      if(obj.randomize())
+      $display(" a = %0d" , obj.a);
+      else
+      $display("failed");
+ end
+endprogram
+
+
+//output
+.exmtb(fast)
+run -all
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 84
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 89
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 60
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 59
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 95
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 94
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 56
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 51
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 90
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 84
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 81
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 73
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 83
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 71
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 78
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 97
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 82
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 63
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 90
+# pre randomize : MIN = 50 , MAX = 100
+#  a = 84
