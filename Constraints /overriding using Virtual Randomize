@@ -1,0 +1,44 @@
+class packet;
+  rand integer  addr;
+  constraint addr_range {addr<100 ; addr>0 ;}
+endclass
+
+
+class child extends packet;
+  constraint  addr_range { addr == 100 ;}  // constraint block in a child class uses the same name as one in the parent class , it overrides the parent constraint block.
+endclass
+
+// randomize() task os virtual , so overridding a constraint works even when 
+//casting child objects  to parent class handle
+
+module exmtb;
+
+    packet P1;  /parent handle
+    child P2;   //child handle
+    integer i ;
+  initial begin
+    P2= new();
+    P1 = P2;  //casting child object to parent class handle
+    
+    for(i =0 ; i<10 ; i++)
+      if(P1.randomize())
+       $display("successfull: addr = %0d" , P1.addr);
+      else
+       $display("failed");   
+  end
+endmodule
+
+
+// output
+
+run -all
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
+# successfull: addr = 100
