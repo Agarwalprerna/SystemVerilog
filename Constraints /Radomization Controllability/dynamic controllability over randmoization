@@ -1,0 +1,49 @@
+
+class base;
+ rand integer a;
+ integer MIN = 10 ,MAX = 30;
+  constraint range{ a< MAX ; a>MIN; }
+
+  task set( integer MIN , integer MAX);
+     this.MIN = MIN;
+     this.MAX = MAX;
+     $display("SET: MIN= %0d , MAX = %0d" , MIN ,MAX);
+  endtask
+
+endclass
+
+program exmtb;
+
+  base obj;
+
+initial begin
+  obj = new();
+  
+   obj.set(0 ,15);   //setting min ,max value 
+     for(int i =0 ;i<3;i++) 
+      if(obj.randomize())
+        $display(" a = %0d" , obj.a);
+      else
+        $display("failed");
+
+   obj.set(30 ,50);   //setting min ,max value 
+     for(int i =0 ;i<3;i++) 
+      if(obj.randomize())
+        $display(" a = %0d" , obj.a);
+      else
+        $display("failed");
+ end
+endprogram
+
+
+//output
+       run -all
+# SET: MIN= 0 , MAX = 15
+#  a = 2
+#  a = 7
+#  a = 10
+# SET: MIN= 30 , MAX = 50
+#  a = 39
+#  a = 43
+#  a = 42
+   
