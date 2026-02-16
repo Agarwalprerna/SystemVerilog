@@ -1,0 +1,34 @@
+
+class packet;
+ rand integer addr;
+ constraint addr_range { addr >0 ; addr<50;}
+endclass
+
+class child extends packet;
+  constraint addr_range { addr <100 ; addr>50 ; }
+endclass
+
+
+module exmtb;
+
+  initial begin
+
+  child P2;
+  P2 = new();  //child object
+
+  for( int i =0 ; i<5 ; i++) begin
+      if( P2.randomize() with {addr <40;} )
+        $display("successful addr = %0d" , P2.addr);
+      else
+         $display("failed");
+  end
+end
+endmodule
+
+//output
+run -all
+# failed
+# failed
+# failed
+# failed
+# failed
