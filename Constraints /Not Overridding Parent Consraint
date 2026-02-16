@@ -1,0 +1,136 @@
+class packet;
+  rand integer  addr;
+  constraint addr_range {addr<100 ; addr>0 ;}
+endclass
+
+//DIFFERENT CONSTRIANT NAMES OF CHILD AND PARENT CLASS
+
+class child extends packet;
+  constraint  addr_range2 { addr< 100; addr>50;}  
+endclass
+
+
+module exmtb;
+  initial begin
+
+//and since the object is of type child, only the child constraint is active.
+
+    child P2;
+    P2 = new();
+    
+    for(int i =0 ; i<100 ; i++)
+      if(P2.randomize())
+       $display("successfull: addr = %0d" , P2.addr);
+      else
+       $display("failed");    
+  end
+endmodule
+
+
+//output
+
+run -all
+# successfull: addr = 73
+# successfull: addr = 61
+# successfull: addr = 56
+# successfull: addr = 88
+# successfull: addr = 81
+# successfull: addr = 54
+# successfull: addr = 78
+# successfull: addr = 63
+# successfull: addr = 67
+# successfull: addr = 99
+# successfull: addr = 61
+# successfull: addr = 55
+# successfull: addr = 52
+# successfull: addr = 55
+# successfull: addr = 66
+# successfull: addr = 92
+# successfull: addr = 55
+# successfull: addr = 75
+# successfull: addr = 99
+# successfull: addr = 72
+# successfull: addr = 55
+# successfull: addr = 90
+# successfull: addr = 95
+# successfull: addr = 83
+# successfull: addr = 87
+# successfull: addr = 70
+# successfull: addr = 98
+# successfull: addr = 88
+# successfull: addr = 60
+# successfull: addr = 98
+# successfull: addr = 87
+# successfull: addr = 72
+# successfull: addr = 95
+# successfull: addr = 91
+# successfull: addr = 92
+# successfull: addr = 52
+# successfull: addr = 51
+# successfull: addr = 94
+# successfull: addr = 76
+# successfull: addr = 81
+# successfull: addr = 61
+# successfull: addr = 79
+# successfull: addr = 90
+# successfull: addr = 88
+# successfull: addr = 53
+# successfull: addr = 51
+# successfull: addr = 70
+# successfull: addr = 69
+# successfull: addr = 77
+# successfull: addr = 84
+# successfull: addr = 81
+# successfull: addr = 79
+# successfull: addr = 80
+# successfull: addr = 79
+# successfull: addr = 94
+# successfull: addr = 62
+# successfull: addr = 79
+# successfull: addr = 56
+# successfull: addr = 72
+# successfull: addr = 52
+# successfull: addr = 53
+# successfull: addr = 62
+# successfull: addr = 85
+# successfull: addr = 70
+# successfull: addr = 65
+# successfull: addr = 69
+# successfull: addr = 56
+# successfull: addr = 57
+# successfull: addr = 91
+# successfull: addr = 78
+# successfull: addr = 64
+# successfull: addr = 79
+# successfull: addr = 87
+# successfull: addr = 88
+# successfull: addr = 51
+# successfull: addr = 97
+# successfull: addr = 59
+# successfull: addr = 67
+# successfull: addr = 98
+# successfull: addr = 79
+# successfull: addr = 91
+# successfull: addr = 98
+# successfull: addr = 83
+# successfull: addr = 74
+# successfull: addr = 78
+# successfull: addr = 68
+# successfull: addr = 92
+# successfull: addr = 81
+# successfull: addr = 56
+# successfull: addr = 53
+# successfull: addr = 81
+# successfull: addr = 66
+# successfull: addr = 52
+# successfull: addr = 90
+# successfull: addr = 56
+# successfull: addr = 64
+# successfull: addr = 92
+# successfull: addr = 74
+# successfull: addr = 78
+# successfull: addr = 58
+quit -sim
+# End time: 14:33:56 on Feb 16,2026, Elapsed time: 0:00:36
+# Errors: 0, Warnings: 0
+
