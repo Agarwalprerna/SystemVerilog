@@ -1,0 +1,36 @@
+class packet;
+
+   rand bit a;
+   rand bit [3:0] b;
+
+   constraint Sab { solve a before b;}
+   constraint a_b { (a ==1) -> b == 0;}
+endclass
+
+
+module exmtb;
+  
+   initial begin
+ packet P;
+ P = new();
+
+     repeat(10) begin
+       P.randomize() ;
+       $display(" a = %0d b = %0d" , P.a , P.b);
+      end
+
+ end
+endmodule
+
+//output   -> solver picks a first and more likeliy to take a ==1 then constriant on b applied afterwards
+run -all
+#  a = 1 b = 0
+#  a = 0 b = 9
+#  a = 0 b = 14
+#  a = 1 b = 0
+#  a = 0 b = 2
+#  a = 0 b = 14
+#  a = 0 b = 9
+#  a = 1 b = 0
+#  a = 0 b = 7
+#  a = 0 b = 10
