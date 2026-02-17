@@ -1,0 +1,29 @@
+class packet;
+
+   rand bit a;
+   rand bit b;
+
+   constraint a_value { a == 1;}
+   constraint b_range {
+           if(a == 0) b == 1;
+           else b == 0; }
+endclass
+
+
+module exmtb;
+  
+   initial begin
+ packet P;
+ P = new();
+
+     repeat(5) begin
+     P.randomize() with { b ==1;} ;  //forcing b ==1 
+     $display(" a = %0d b = %0d c = %0d" , P.a , P.b);
+      end
+
+ end
+endmodule
+
+//output 
+ERROR 
+because b==1 when a == 0 but constraint on a == 1 so therefore inconssistent constraint 
