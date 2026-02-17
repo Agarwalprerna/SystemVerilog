@@ -1,0 +1,45 @@
+class packet;
+   rand int addr;
+   rand int data;
+
+   //global consteaint 
+    constraint global_c { 
+          addr inside {[21:30]} ;
+          data inside {[0:100]};
+          data >addr;
+   }
+endclass
+
+
+module exmtb;
+
+  initial begin
+       
+        packet P;
+       P = new();
+
+    repeat(10) begin
+         if(P.randomize())
+           $display(" addr = %0d , data = %0d" , P.addr , P.data);
+         else
+           $display("failed Randomization");
+   end
+end
+endmodule
+
+//output
+un -all
+#  addr = 23 , data = 25
+#  addr = 28 , data = 49
+#  addr = 25 , data = 68
+#  addr = 28 , data = 36
+#  addr = 27 , data = 75
+#  addr = 28 , data = 83
+#  addr = 30 , data = 58
+#  addr = 29 , data = 91
+#  addr = 23 , data = 96
+#  addr = 27 , data = 36
+
+
+
+   
