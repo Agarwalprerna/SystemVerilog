@@ -1,0 +1,33 @@
+class packet;
+   rand byte addr;
+
+   //constraint addr_range { addr inside {0 , 1, [20:30]}; }
+   //constraint  addr_range { !( addr inside {0,1,5,6} ); }
+  //constraint addr_range { addr dist { 4:= 50 , 43:=10}; } // 4 has 50/128 chance and 43 has 10/128 chance
+    //constraint addr_range { addr inside{ 10 ,10 ,10,22,22};}  //choose 10 or 22
+    constraint addr_range{ addr dist{ 4:/10 , 45:/90};}  //4 has 10/100 chance and 45 has 90/100 chance
+
+
+   function void post_randomize();
+      $write ("%0d_" , addr);
+   endfunction
+
+endclass
+
+module exmtb;   
+    packet obj = new();
+
+   initial begin
+   repeat(10) begin
+   void'(obj.randomize() );  
+  end
+end
+endmodule
+
+
+//output
+20_25_21_23_28
+95_-25_-19_69_125_
+4_4_4_43_4_
+22_22_22_22_22_vsim
+4_45_4_45_4_45_45_45_45_45_
