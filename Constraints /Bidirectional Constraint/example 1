@@ -1,0 +1,34 @@
+class packet;
+
+   rand bit [3:0] a;
+   rand bit [3:0] b;
+   rand bit [3:0] c;
+
+   constraint s_range { a == b + c;}
+   constraint b_range{ b>6 ;}
+   constraint c_range{ c< 8;}
+endclass
+
+
+module exmtb;
+  
+   initial begin
+ packet P;
+ P = new();
+
+     repeat(5) begin
+     P.randomize();
+     $display(" a = %0d b = %0d c = %0d" , P.a , P.b ,P.c);
+      end
+
+ end
+endmodule
+
+
+//output
+run -all
+#  a = 3 b = 15 c = 4
+#  a = 2 b = 13 c = 5
+#  a = 15 b = 15 c = 0
+#  a = 13 b = 11 c = 2
+#  a = 0 b = 11 c = 5
