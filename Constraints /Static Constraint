@@ -1,0 +1,40 @@
+
+class packet;
+   rand byte addr;
+    static constraint addr_range { addr ==50; }
+endclass
+
+module exmtb;
+   
+   initial begin
+    packet P1;
+    packet P2;
+    P1 = new();
+    P2 = new();
+
+    $display("before disabling constraint");
+    P1.randomize();
+    $display(" P1 : addr = %0d" , P1.addr);
+    P2.randomize();
+    $display("P2 : addr = %0d" , P2.addr);
+
+    P2.addr_range.constraint_mode(0) ;  //disabling  constriant for both Objects as static constriant is declared 
+
+    $display("After disabling constraint");
+    P1.randomize();
+    $display(" P1 : addr = %0d" , P1.addr);
+    P2.randomize();
+    $display("P2 : addr = %0d" , P2.addr);
+   
+   end
+
+endmodule
+
+
+//output
+before disabling constraint
+#  P1 : addr = 50
+# P2 : addr = 50
+# After disabling constraint
+#  P1 : addr = -23
+# P2 : addr = -44
