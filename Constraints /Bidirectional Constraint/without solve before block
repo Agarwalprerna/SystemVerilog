@@ -1,0 +1,36 @@
+class packet;
+
+   rand bit a;
+   rand bit [3:0] b;
+
+   //constraint Sab { solve a before b;}
+   constraint a_b { (a ==1) -> b == 0;}
+endclass
+
+
+module exmtb;
+  
+   initial begin
+ packet P;
+ P = new();
+
+     repeat(10) begin
+       P.randomize() ;
+       $display(" a = %0d b = %0d" , P.a , P.b);
+      end
+
+ end
+endmodule
+
+//output   ->  chance of b==0  is low from 0-15 range . So solver avoids (a==1) condition 
+run -all
+#  a = 0 b = 12
+#  a = 0 b = 5
+#  a = 0 b = 2
+#  a = 0 b = 1
+#  a = 0 b = 5
+#  a = 1 b = 0
+#  a = 0 b = 9
+#  a = 0 b = 10
+#  a = 1 b = 0
+#  a = 0 b = 3
