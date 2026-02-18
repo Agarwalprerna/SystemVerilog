@@ -1,0 +1,23 @@
+
+class divby11;
+
+    rand int num;
+    constraint four_digit {
+
+         num inside { [1000:9999]} ;
+         num % 11 == 0;
+    }
+endclass
+
+module exmtb;
+ initial begin
+     divby11 obj = new();
+     
+
+     repeat(10) begin
+       if( obj.randomize() ) 
+       $display(" num = %d" , obj.num);
+     end
+end
+endmodule
+
