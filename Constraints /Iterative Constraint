@@ -1,0 +1,41 @@
+class iterative;
+
+   rand  byte Payload[];
+
+    constraint size_range { Payload.size() inside {[10:50]} ; }
+    constraint elemenet_range { foreach (Payload[i]) Payload[i] inside { [50:100]} ;}
+
+
+   function void post_randomize();
+      foreach( Payload[i])
+           $display("Payload[%0d] : %d" , i,Payload[i] );
+   endfunction
+
+endclass
+
+program exmtb;
+
+   iterative obj;
+  initial begin
+
+     obj = new();
+
+     if(obj.randomize() ) 
+        $display("Randomization failed");
+     end
+
+endprogram
+
+//output
+run -all
+# Payload[0] :   74
+# Payload[1] :   92
+# Payload[2] :   58
+# Payload[3] :   63
+# Payload[4] :   94
+# Payload[5] :   96
+# Payload[6] :   98
+# Payload[7] :   84
+# Payload[8] :   61
+# Payload[9] :   93
+# Randomization failed
