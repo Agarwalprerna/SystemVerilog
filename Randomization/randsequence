@@ -1,0 +1,48 @@
+module  exmtb;
+
+  initial begin
+     repeat(5) begin
+   
+      randsequence(main)
+        main: one two three;
+        one: { $write("one"); };
+        two: { $write("two");};
+        three: {$write("three"); };
+      endsequence
+  end
+end
+endmodule
+
+//output
+onetwothreeonetwothreeonetwothreeonetwothreeonetwothree
+
+
+//example 2
+module  exmtb;
+
+  initial begin
+     repeat(5) begin
+   
+      randsequence(main)
+        main: one |two| three;
+        one: { $write("one"); };
+        two: { $write("two");};
+        three: {$write("three"); };
+      endsequence
+  end
+end
+
+endmodule
+
+//output
+
+threetwotwoonetwo
+
+
+
+
+
+
+
+
+endmodule
