@@ -1,0 +1,56 @@
+//IP address ranging from 0 :255 in which first field must be 1 to 233
+
+class IPaddr;
+
+   rand bit[7:0] seg[4];  //array
+
+  constraint IP_range{
+          seg[0] inside {[1:233]} ;
+          foreach( seg[i])
+              seg[i] inside {[0:255]} ;
+}
+
+   function void display();
+      $display("IP = %0d.%0d.%0d.%0d" , seg[0] , seg[1] , seg[2] , seg[3]);
+   endfunction
+
+endclass
+
+module exmtb;
+
+   initial begin
+    IPaddr obj = new();
+
+    repeat(20) begin
+      obj.randomize() ;
+      obj.display();
+    end
+endmodule
+
+//output
+
+# IP = 120.10.217.141
+# IP = 42.36.148.53
+# IP = 34.97.252.248
+# IP = 66.155.33.168
+# IP = 43.91.97.34
+# IP = 3.204.137.106
+# IP = 220.228.145.182
+# IP = 116.66.42.141
+# IP = 151.130.218.19
+# IP = 169.112.4.243
+# IP = 31.107.34.7
+# IP = 100.7.162.21
+# IP = 178.133.108.18
+# IP = 233.202.178.182
+# IP = 151.239.53.0
+# IP = 189.63.145.95
+# IP = 229.252.13.224
+# IP = 181.161.227.175
+# IP = 70.212.25.174
+# IP = 69.111.139.7
+
+
+
+end
+endmodule
