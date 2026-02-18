@@ -1,0 +1,34 @@
+class packet;
+
+    rand bit [3:0] addr;
+    constraint addr_range{ soft addr> 6;}
+
+endclass
+
+module exmtb;
+   initial begin
+
+  packet obj;
+  obj = new();
+
+  repeat(10) begin
+    obj.randomize() with {addr < 6;};  //inline constraint overrides the class cosntraint
+    $display("addr = %0d" , obj.addr);
+  end
+end
+
+endmodule
+
+
+//output 
+run -all
+# addr = 0
+# addr = 1
+# addr = 0
+# addr = 0
+# addr = 3
+# addr = 2
+# addr = 2
+# addr = 0
+# addr = 3
+# addr = 2
