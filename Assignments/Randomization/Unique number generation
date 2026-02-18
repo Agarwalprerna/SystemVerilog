@@ -1,0 +1,43 @@
+
+class unique_num;
+
+    rand int arr[5];
+  
+    constraint range{
+ 
+           foreach(arr[i]){
+               arr[i] inside {[1:20]} };
+           
+          unique{arr};
+   }
+
+   function void display();
+       $display( "numbers = %p" , arr);
+   endfunction
+  
+endclass
+
+module exmtb;
+
+   initial begin
+   unique_num  obj = new();
+   repeat(10) begin
+     obj.randomize();
+     //$display(" numbers = %p" , obj.arr);
+     obj.display();
+   end
+end
+endmodule
+
+//output
+
+# numbers = '{20, 5, 1, 11, 4}
+# numbers = '{20, 5, 10, 9, 2}
+# numbers = '{1, 18, 10, 14, 20}
+# numbers = '{5, 3, 16, 17, 14}
+# numbers = '{8, 14, 3, 17, 18}
+# numbers = '{5, 11, 10, 9, 8}
+# numbers = '{5, 20, 17, 14, 4}
+# numbers = '{17, 12, 19, 6, 20}
+# numbers = '{1, 7, 20, 12, 11}
+# numbers = '{6, 18, 2, 8, 4}
