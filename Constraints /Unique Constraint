@@ -1,0 +1,38 @@
+class unique_exm;
+  
+      rand bit [3:0] var1 , var2, var3;
+      rand bit [7:0] arr[6];
+
+      constraint var_range { unique { var1, var2, var3};}
+      constraint arr_range { unique {arr};}
+
+   function void display();
+     $display("var1 = %d" , var1);
+     $display("var2 = %d" , var2);
+     $display("var3 = %d" , var3);
+     $display("arr= %p" , arr);
+  endfunction
+
+endclass
+
+program exmtb;
+   
+    unique_exm obj;
+ 
+   initial begin
+       obj = new();
+       obj.randomize();
+       obj.display();
+   end
+endprogram
+
+
+//output
+run -all
+# var1 = 13
+# var2 =  4
+# var3 =  9
+# arr= '{141, 239, 194, 74, 233, 199}
+# ** Note: implicit $finish from program    : C:/intelFPGA/modelim_lab/exmtb.sv(13)
+#    Time: 0 ps  Iteration: 0  Instance: /exmtb
+# 1
