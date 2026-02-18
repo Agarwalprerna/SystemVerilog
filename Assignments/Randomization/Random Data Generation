@@ -1,0 +1,42 @@
+class random_data;
+
+   rand int day ,month;
+   int year = 2024;
+
+ constraint range{
+  
+       month inside {[1:12]};
+
+       if(month ==2)
+           day inside {[1:29]};
+       else if (month inside { 1,5,7,8,10,12} )
+           day inside { [1:31]};
+       else 
+           day inside {[1:30]};
+  } 
+
+endclass
+
+module exmtb;
+
+   initial begin
+    random_data  obj = new();
+   repeat(10) begin
+    obj.randomize();
+       $display(" Data = %0d/%0d/%0d" , obj.day ,obj.month ,obj.year);
+   end
+end
+endmodule
+
+//output
+run -all
+#  Data = 25/1/2024
+#  Data = 16/4/2024
+#  Data = 30/11/2024
+#  Data = 30/4/2024
+#  Data = 27/3/2024
+#  Data = 18/6/2024
+#  Data = 4/5/2024
+#  Data = 8/9/2024
+#  Data = 16/6/2024
+#  Data = 20/10/2024
