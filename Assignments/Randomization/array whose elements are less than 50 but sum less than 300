@@ -1,0 +1,39 @@
+class arr;
+
+    rand integer arr[10];
+  
+    constraint range{
+           foreach(arr[i])
+                arr[i] < 50;  //solve takes negative values so take arr[i] insde [0:50]
+                arr.sum() < 300;
+   }
+
+   function void display();
+       $display( "array = %p sum = %0d " , arr, arr.sum() );
+   endfunction
+  
+endclass
+
+module exmtb;
+
+   initial begin
+   arr  obj = new();
+   repeat(10) begin
+     obj.randomize();
+     //$display(" numbers = %p" , obj.arr);
+     obj.display();
+   end
+end
+endmodule
+
+//output
+# array = '{34, 31, 33, 6, 29, 34, 28, 45, 19, 6} sum = 265 
+# array = '{8, 16, 31, 3, 1, 38, 11, 22, 10, 24} sum = 164 
+# array = '{1, 9, 22, 31, 38, 8, 47, 24, 13, 26} sum = 219 
+# array = '{22, 17, 7, 20, 12, 46, 37, 1, 49, 16} sum = 227 
+# array = '{38, 49, 4, 1, 50, 33, 7, 21, 20, 46} sum = 269 
+# array = '{24, 11, 12, 47, 1, 48, 19, 25, 29, 10} sum = 226 
+# array = '{15, 34, 37, 3, 27, 10, 30, 44, 32, 17} sum = 249 
+# array = '{37, 28, 10, 24, 45, 9, 22, 15, 13, 18} sum = 221 
+# array = '{32, 25, 24, 18, 9, 34, 16, 9, 27, 2} sum = 196 
+# array = '{6, 2, 44, 20, 47, 12, 23, 14, 5, 16} sum = 189 
