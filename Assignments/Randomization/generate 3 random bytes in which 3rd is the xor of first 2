@@ -1,0 +1,40 @@
+
+class xor_bytes;
+
+    rand  byte a ,b,c;
+  
+    constraint c_xor{
+ 
+             c == (a ^b);
+   }
+
+   function void display();
+       $display( "a = %0h b = %0h c =%0h" ,a,b,c);
+   endfunction
+  
+endclass
+
+module exmtb;
+
+   initial begin
+   xor_bytes  obj = new();
+   repeat(10) begin
+     obj.randomize();
+     //$display(" numbers = %p" , obj.arr);
+     obj.display();
+   end
+end
+endmodule
+
+//output
+
+# a = ad b = 8e c =23
+# a = e1 b = eb c =a
+# a = 98 b = e4 c =7c
+# a = ef b = a c =e5
+# a = cb b = 1 c =ca
+# a = 5c b = 10 c =4c
+# a = a7 b = 9e c =39
+# a = f6 b = ae c =58
+# a = 31 b = 79 c =48
+# a = 86 b = 77 c =f1
