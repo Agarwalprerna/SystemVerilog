@@ -1,0 +1,37 @@
+class random_num;
+
+   rand int d1,d2,d3;
+
+ constraint range{
+     
+            d1 inside {[0:9]};
+            d2 inside {[0:9]};
+            d3 inside {[0:9]};
+         unique { d1, d2, d3};   
+  } 
+
+endclass
+
+module exmtb;
+
+   initial begin
+    random_num obj = new();
+   repeat(10) begin
+    obj.randomize();
+       $display("number = %0d%0d%0d" , obj.d1 , obj.d2, obj.d3);
+   end
+end
+endmodule
+
+//output
+run -all
+# number = 296
+# number = 163
+# number = 293
+# number = 274
+# number = 180
+# number = 371
+# number = 653
+# number = 502
+# number = 478
+# number = 814
