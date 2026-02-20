@@ -1,0 +1,46 @@
+
+class PINCODE;
+   
+      rand int pin[4];
+
+ constraint range{
+          foreach(pin[i])
+             pin[i] inside {[0:9]};
+   }
+
+  constraint seq {  
+         !( (pin[1] == pin[0] +1 ) && ( pin[2] == pin[1] + 1) && (pin[3] == pin[2] + 1));
+}             
+    // digits are not in sequential order like 1234,4567..
+ 
+
+   function void display();
+        $display("PINCODE = %0d%0d%0d%0d" , pin[0], pin[1] , pin[2] , pin[3]);
+   endfunction
+     
+endclass
+
+module exmtb;
+
+   initial begin
+     PINCODE  obj = new();
+   repeat(10) begin
+    obj.randomize();
+    obj.display();
+   end
+end
+endmodule
+
+//output
+run -all
+# PINCODE = 1365
+# PINCODE = 4574
+# PINCODE = 2575
+# PINCODE = 5387
+# PINCODE = 2355
+# PINCODE = 9495
+# PINCODE = 1295
+# PINCODE = 0291
+# PINCODE = 4723
+# PINCODE = 0487
+
