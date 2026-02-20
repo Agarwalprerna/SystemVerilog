@@ -1,0 +1,44 @@
+typedef enum {COLD , HOT} mode_e;
+  // avoid string in constraint (solver heavy)
+class temp;
+
+     rand int temp;
+     rand mode_e mode;
+
+    constraint temp_range {
+            if(mode == COLD)
+               temp inside {[0:15]};
+            else if (mode == HOT)
+               temp inside {[30:45]};
+   }
+   
+   function void display();
+        $display("Mode = %s , temp = %0d" , (mode==COLD)? "COLD" :"HOT" , temp);
+   endfunction
+     
+endclass
+
+module exmtb;
+
+   initial begin
+    temp  obj = new();
+   repeat(10) begin
+    obj.randomize();
+    obj.display();
+   end
+end
+endmodule
+
+
+//output
+run -all
+# Mode = COLD , temp = 11
+# Mode =  HOT , temp = 44
+# Mode = COLD , temp = 13
+# Mode = COLD , temp = 1
+# Mode =  HOT , temp = 31
+# Mode =  HOT , temp = 38
+# Mode =  HOT , temp = 43
+# Mode = COLD , temp = 5
+# Mode =  HOT , temp = 32
+# Mode =  HOT , temp = 38
