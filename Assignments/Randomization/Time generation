@@ -1,0 +1,39 @@
+
+class Time;
+
+       rand int hr,min;
+   
+      constraint range {
+               hr inside {[0:23]};
+              min inside {[0:59]};
+}
+   
+   function void display();
+        $display("time = %02d:%02d" , hr,min);  //dont use %0d 
+   endfunction
+     
+endclass
+
+module exmtb;
+
+   initial begin
+    Time obj = new();
+   repeat(10) begin
+    obj.randomize();
+    obj.display();
+   end
+end
+endmodule
+
+//output
+un -all
+# time = 21: 1
+# time = 16:29
+# time = 17: 8
+# time = 12:56
+# time = 13:31
+# time = 17:22
+# time =  1: 2
+# time = 19:29
+# time = 12:43
+# time =  3:58
