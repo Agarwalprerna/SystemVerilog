@@ -1,0 +1,41 @@
+
+class IPaddr;
+   
+      rand byte IP[4];
+
+ constraint range{
+         foreach(IP[i])
+             IP[i] inside {[0:255]};
+             IP[0] == 8'd127;
+      
+   }
+   function void display();
+        $display("Ip = %0d.%0d.%0d.%0d" , IP[0],IP[1] , IP[2] , IP[3]);
+   endfunction
+     
+endclass
+
+module exmtb;
+
+   initial begin
+    IPaddr obj = new();
+   repeat(10) begin
+    obj.randomize();
+    obj.display();
+   end
+end
+endmodule
+
+//output
+run -all
+# Ip = 127.43.49.13
+# Ip = 127.23.103.88
+# Ip = 127.89.30.19
+# Ip = 127.27.125.99
+# Ip = 127.23.38.45
+# Ip = 127.38.15.55
+# Ip = 127.55.37.98
+# Ip = 127.20.48.92
+# Ip = 127.41.69.26
+# Ip = 127.78.58.126
+
