@@ -1,0 +1,43 @@
+class variable;
+
+       rand int a , b,c;
+   
+      constraint range {
+                a inside {[1:50]};
+                b inside {[1:50]};
+                c inside {[1:50]};
+     
+                a<b;
+                b<c;    //avoid a<b<c; in single way
+}
+   
+   function void display();
+        $display("a=%0d b=%0d c=%0d" ,a,b,c);
+   endfunction
+     
+endclass
+
+module exmtb;
+
+   initial begin
+    variable obj = new();
+   repeat(10) begin
+    obj.randomize();
+    obj.display();
+   end
+end
+endmodule
+
+
+//output
+run -all
+# a= 9 b=37 c=49
+# a= 1 b=22 c=29
+# a= 11 b=26 c=50
+# a= 37 b=49 c=50
+# a= 25 b=37 c=44
+# a= 4 b=6 c=7
+# a= 13 b=19 c=20
+# a= 2 b=5 c=7
+# a= 3 b=5 c=16
+# a= 29 b=47 c=49
