@@ -1,0 +1,35 @@
+class num;
+     rand bit [4:0] num;
+
+   constraint numones {
+               
+                $countones(num) >= 3;
+  }
+
+  
+
+   function void display();
+      $display("num = %0b , ones=%0d" , num, $countones(num) );
+   endfunction
+endclass
+
+module exmtb;
+
+  num obj = new();
+initial begin
+  
+  repeat(5) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+
+//output
+run -all
+# num = 11110 , ones=          4
+# num = 111 , ones=          3
+# num = 11001 , ones=          3
+# num = 10011 , ones=          3
+# num = 11001 , ones=          3
