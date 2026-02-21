@@ -1,0 +1,72 @@
+
+module exmtb;
+
+ int y;
+ int values[$] = '{10,20,40,50,60,70,80,90};     //total 8 samples
+
+covergroup cg;
+ cover_point_y : coverpoint y{
+                     
+                    option.auto_bin_max = 16;
+                    ignore_bins tans1 = ( 10=>50=>80);                   // 10->50->80 NOT CONSECUTIVE SEQUENCE - NOT TRIGGRED in CALCULATION 
+                    ignore_bins b2 = { 40,70};                  //40, 70 2 values are ignored out of 8 ,
+                                                                   //so remaining samples 6 and these 6 values can likely to be occured in  auto bin[0:x] = covered
+                     //since bins are not explicitly deifned so SV creates implicit bins automatically but we  have set limit of total auto bins = 16.
+                 }
+endgroup
+
+cg cg_inst = new();
+
+initial begin
+   foreach(values[i]) begin
+         y = values[i];
+         cg_inst.sample();
+  end
+end
+endmodule
+
+//OUTPUT
+
+coverage report -detail
+# COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /exmtb/cg                                         6.25%        100    Uncovered            
+#     covered/total bins:                                     1         16                      
+#     missing/total bins:                                    15         16                      
+#     % Hit:                                              6.25%        100                      
+#     Coverpoint cg::cover_point_y                        6.25%        100    Uncovered            
+#         covered/total bins:                                 1         16                      
+#         missing/total bins:                                15         16                      
+#         % Hit:                                          6.25%        100                      
+#  Covergroup instance \/exmtb/cg_inst                    6.25%        100    Uncovered            
+#     covered/total bins:                                     1         16                      
+#     missing/total bins:                                    15         16                      
+#     % Hit:                                              6.25%        100                      
+#     Coverpoint cover_point_y                            6.25%        100    Uncovered            
+#         covered/total bins:                                 1         16                      
+#         missing/total bins:                                15         16                      
+#         % Hit:                                          6.25%        100                      
+#         ignore_bin tans1                                    0               ZERO                 
+#         ignore_bin b2                                       2               Occurred             
+#         bin auto[-2147483648:-1879048193]                   0          1    ZERO                 
+#         bin auto[-1879048192:-1610612737]                   0          1    ZERO                 
+#         bin auto[-1610612736:-1342177281]                   0          1    ZERO                 
+#         bin auto[-1342177280:-1073741825]                   0          1    ZERO                 
+#         bin auto[-1073741824:-805306369]                    0          1    ZERO                 
+#         bin auto[-805306368:-536870913]                     0          1    ZERO                 
+#         bin auto[-536870912:-268435457]                     0          1    ZERO                 
+#         bin auto[-268435456:-1]                             0          1    ZERO                 
+#         bin auto[0:268435455]                               6          1    Covered              
+#         bin auto[268435456:536870911]                       0          1    ZERO                 
+#         bin auto[536870912:805306367]                       0          1    ZERO                 
+#         bin auto[805306368:1073741823]                      0          1    ZERO                 
+#         bin auto[1073741824:1342177279]                     0          1    ZERO                 
+#         bin auto[1342177280:1610612735]                     0          1    ZERO                 
+#         bin auto[1610612736:1879048191]                     0          1    ZERO                 
+#         bin auto[1879048192:2147483647]                     0          1    ZERO                 
+# 
+# TOTAL COVERGROUP COVERAGE: 6.25%  COVERGROUP TYPES: 1
+# 
