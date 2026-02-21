@@ -7,7 +7,9 @@ module exmtb;
 covergroup cg;
  cover_point_y : coverpoint y{
 
-                     bins trans1 = ( 80,90 => 20,40);
+                     bins trans1 = ( 80,90 => 20,40);    // 4 transition
+                                                          //80-> 20 , 80->40 and 90->20 , 90->40
+                                                         // since singel bin is there so if any trnsition matchs then coverage would be 100% 
                      
                  }
 endgroup
