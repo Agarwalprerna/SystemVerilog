@@ -1,0 +1,51 @@
+
+module exmtb;
+
+ int y;
+ int values[$] = '{1 ,1, 4,5,2,2,2,2,3,3,3};
+
+covergroup cg;
+ cover_point_y : coverpoint y{
+                     bins b1 = (2=> 3[=2]);
+                     bins b2 = (1=> 2[->5] =>3); 
+                   }
+endgroup
+
+cg cg_inst = new();
+
+initial begin
+   foreach(values[i]) begin
+         y = values[i];
+         cg_inst.sample();
+  end
+end
+endmodule
+
+//OUTPUT
+
+COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /exmtb/cg                                        50.00%        100    Uncovered            
+#     covered/total bins:                                     1          2                      
+#     missing/total bins:                                     1          2                      
+#     % Hit:                                             50.00%        100                      
+#     Coverpoint cg::cover_point_y                       50.00%        100    Uncovered            
+#         covered/total bins:                                 1          2                      
+#         missing/total bins:                                 1          2                      
+#         % Hit:                                         50.00%        100                      
+#  Covergroup instance \/exmtb/cg_inst                   50.00%        100    Uncovered            
+#     covered/total bins:                                     1          2                      
+#     missing/total bins:                                     1          2                      
+#     % Hit:                                             50.00%        100                      
+#     Coverpoint cover_point_y                           50.00%        100    Uncovered            
+#         covered/total bins:                                 1          2                      
+#         missing/total bins:                                 1          2                      
+#         % Hit:                                         50.00%        100                      
+#         bin b1                                              1          1    Covered              
+#         bin b2                                              0          1    ZERO                 
+# 
+# TOTAL COVERGROUP COVERAGE: 50.00%  COVERGROUP TYPES: 1
+# 
