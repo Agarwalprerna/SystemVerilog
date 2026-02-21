@@ -1,0 +1,48 @@
+class num;
+     rand int mat[3][3] ;
+
+    constraint ele{
+            foreach(mat[i,j])
+               mat[i][j] inside {[0:10]};    // because to have sum =15 
+  }
+
+   constraint row_sum{
+            foreach(mat[i])
+              mat[i].sum == 15;
+ }
+
+   function void display();
+      foreach(mat[i])
+         $display(" %p -> sum = %0d " , mat[i] , mat[i].sum() );
+   endfunction
+endclass
+
+module exmtb;
+
+  num obj = new();
+initial begin
+  
+  repeat(5) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//output
+run -all
+#  '{4, 1, 10} -> sum = 15 
+#  '{5, 9, 1} -> sum = 15 
+#  '{5, 5, 5} -> sum = 15 
+#  '{7, 6, 2} -> sum = 15 
+#  '{3, 5, 7} -> sum = 15 
+#  '{2, 9, 4} -> sum = 15 
+#  '{9, 5, 1} -> sum = 15 
+#  '{1, 4, 10} -> sum = 15 
+#  '{3, 9, 3} -> sum = 15 
+#  '{1, 5, 9} -> sum = 15 
+#  '{6, 1, 8} -> sum = 15 
+#  '{0, 8, 7} -> sum = 15 
+#  '{9, 3, 3} -> sum = 15 
+#  '{2, 7, 6} -> sum = 15 
+#  '{9, 4, 2} -> sum = 15 
