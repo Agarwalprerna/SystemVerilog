@@ -1,0 +1,32 @@
+class num;
+
+    rand bit [3:0] n;
+  
+    constraint range{
+          $countones(n) == 2;
+  }
+
+   function void display();
+      $display("number = %0b",n);
+   endfunction
+endclass
+
+module exmtb;
+
+  num obj = new();
+initial begin
+  
+  repeat(5) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//output
+run -all
+# number = 1100
+# number = 1100
+# number = 11
+# number = 1100
+# number = 11
