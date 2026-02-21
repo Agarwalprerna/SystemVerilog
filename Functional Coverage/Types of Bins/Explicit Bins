@@ -1,0 +1,125 @@
+
+module exmtb;
+
+ int y;
+ int values[$] = '{0,2,7,10,20,40,50,60,70,80,90};
+
+covergroup cg;
+ cover_point_y : coverpoint y{
+                    bins  b1 = { 0,2,7};
+                    bins b2 = {40,90};
+                    bins b3[] = { [10:39] , [41:80] , 140 } ;
+                    bins b4 = {[200:$]};
+                     
+                   }
+endgroup
+
+cg cg_inst = new();
+
+initial begin
+   foreach(values[i]) begin
+         y = values[i];
+         cg_inst.sample();
+  end
+end
+endmodule
+
+//OUTPUT
+coverage report -detail
+# COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /exmtb/cg                                        10.81%        100    Uncovered            
+#     covered/total bins:                                     8         74                      
+#     missing/total bins:                                    66         74                      
+#     % Hit:                                             10.81%        100                      
+#     Coverpoint cg::cover_point_y                       10.81%        100    Uncovered            
+#         covered/total bins:                                 8         74                      
+#         missing/total bins:                                66         74                      
+#         % Hit:                                         10.81%        100                      
+#  Covergroup instance \/exmtb/cg_inst                   10.81%        100    Uncovered            
+#     covered/total bins:                                     8         74                      
+#     missing/total bins:                                    66         74                      
+#     % Hit:                                             10.81%        100                      
+#     Coverpoint cover_point_y                           10.81%        100    Uncovered            
+#         covered/total bins:                                 8         74                      
+#         missing/total bins:                                66         74                      
+#         % Hit:                                         10.81%        100                      
+#         bin b1                                              3          1    Covered              
+#         bin b2                                              2          1    Covered              
+#         bin b3[10]                                          1          1    Covered              
+#         bin b3[11]                                          0          1    ZERO                 
+#         bin b3[12]                                          0          1    ZERO                 
+#         bin b3[13]                                          0          1    ZERO                 
+#         bin b3[14]                                          0          1    ZERO                 
+#         bin b3[15]                                          0          1    ZERO                 
+#         bin b3[16]                                          0          1    ZERO                 
+#         bin b3[17]                                          0          1    ZERO                 
+#         bin b3[18]                                          0          1    ZERO                 
+#         bin b3[19]                                          0          1    ZERO                 
+#         bin b3[20]                                          1          1    Covered              
+#         bin b3[21]                                          0          1    ZERO                 
+#         bin b3[22]                                          0          1    ZERO                 
+#         bin b3[23]                                          0          1    ZERO                 
+#         bin b3[24]                                          0          1    ZERO                 
+#         bin b3[25]                                          0          1    ZERO                 
+#         bin b3[26]                                          0          1    ZERO                 
+#         bin b3[27]                                          0          1    ZERO                 
+#         bin b3[28]                                          0          1    ZERO                 
+#         bin b3[29]                                          0          1    ZERO                 
+#         bin b3[30]                                          0          1    ZERO                 
+#         bin b3[31]                                          0          1    ZERO                 
+#         bin b3[32]                                          0          1    ZERO                 
+#         bin b3[33]                                          0          1    ZERO                 
+#         bin b3[34]                                          0          1    ZERO                 
+#         bin b3[35]                                          0          1    ZERO                 
+#         bin b3[36]                                          0          1    ZERO                 
+#         bin b3[37]                                          0          1    ZERO                 
+#         bin b3[38]                                          0          1    ZERO                 
+#         bin b3[39]                                          0          1    ZERO                 
+#         bin b3[41]                                          0          1    ZERO                 
+#         bin b3[42]                                          0          1    ZERO                 
+#         bin b3[43]                                          0          1    ZERO                 
+#         bin b3[44]                                          0          1    ZERO                 
+#         bin b3[45]                                          0          1    ZERO                 
+#         bin b3[46]                                          0          1    ZERO                 
+#         bin b3[47]                                          0          1    ZERO                 
+#         bin b3[48]                                          0          1    ZERO                 
+#         bin b3[49]                                          0          1    ZERO                 
+#         bin b3[50]                                          1          1    Covered              
+#         bin b3[51]                                          0          1    ZERO                 
+#         bin b3[52]                                          0          1    ZERO                 
+#         bin b3[53]                                          0          1    ZERO                 
+#         bin b3[54]                                          0          1    ZERO                 
+#         bin b3[55]                                          0          1    ZERO                 
+#         bin b3[56]                                          0          1    ZERO                 
+#         bin b3[57]                                          0          1    ZERO                 
+#         bin b3[58]                                          0          1    ZERO                 
+#         bin b3[59]                                          0          1    ZERO                 
+#         bin b3[60]                                          1          1    Covered              
+#         bin b3[61]                                          0          1    ZERO                 
+#         bin b3[62]                                          0          1    ZERO                 
+#         bin b3[63]                                          0          1    ZERO                 
+#         bin b3[64]                                          0          1    ZERO                 
+#         bin b3[65]                                          0          1    ZERO                 
+#         bin b3[66]                                          0          1    ZERO                 
+#         bin b3[67]                                          0          1    ZERO                 
+#         bin b3[68]                                          0          1    ZERO                 
+#         bin b3[69]                                          0          1    ZERO                 
+#         bin b3[70]                                          1          1    Covered              
+#         bin b3[71]                                          0          1    ZERO                 
+#         bin b3[72]                                          0          1    ZERO                 
+#         bin b3[73]                                          0          1    ZERO                 
+#         bin b3[74]                                          0          1    ZERO                 
+#         bin b3[75]                                          0          1    ZERO                 
+#         bin b3[76]                                          0          1    ZERO                 
+#         bin b3[77]                                          0          1    ZERO                 
+#         bin b3[78]                                          0          1    ZERO                 
+#         bin b3[79]                                          0          1    ZERO                 
+#         bin b3[80]                                          1          1    Covered              
+#         bin b3[140]                                         0          1    ZERO                 
+#         bin b4                                              0          1    ZERO                 
+# 
+# TOTAL COVERGROUP COVERAGE: 10.81%  COVERGROUP TYPES: 1
