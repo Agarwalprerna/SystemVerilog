@@ -1,0 +1,72 @@
+module Cons_tb;
+
+     bit a ,b;
+
+  covergroup cg;
+       cross a,b;  //we do not declare coverpoints so simulator automatically creates implicit coverpoints
+   endgroup
+    
+     
+  cg cg_inst = new();
+
+initial begin
+
+     repeat(10) begin
+          a = $urandom_range(0,1);
+          b = $urandom_range(0,1);
+          cg_inst.sample();
+     end
+end
+
+endmodule
+
+//OUTPUT
+coverage report -detail
+# COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /Cons_tb/cg                                     100.00%        100    Covered              
+#     covered/total bins:                                     8          8                      
+#     missing/total bins:                                     0          8                      
+#     % Hit:                                            100.00%        100                      
+#     Coverpoint cg::a                                  100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#     Coverpoint cg::b                                  100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#     Cross cg::#cross__0#                              100.00%        100    Covered              
+#         covered/total bins:                                 4          4                      
+#         missing/total bins:                                 0          4                      
+#         % Hit:                                        100.00%        100                      
+#  Covergroup instance \/Cons_tb/cg_inst                100.00%        100    Covered              
+#     covered/total bins:                                     8          8                      
+#     missing/total bins:                                     0          8                      
+#     % Hit:                                            100.00%        100                      
+#     Coverpoint a                                      100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#         bin auto[0]                                         6          1    Covered              
+#         bin auto[1]                                         4          1    Covered              
+#     Coverpoint b                                      100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#         bin auto[0]                                         8          1    Covered              
+#         bin auto[1]                                         2          1    Covered              
+#     Cross #cross__0#                                  100.00%        100    Covered              
+#         covered/total bins:                                 4          4                      
+#         missing/total bins:                                 0          4                      
+#         % Hit:                                        100.00%        100                      
+#         bin <auto[0],auto[0]>                               5          1    Covered              
+#         bin <auto[1],auto[0]>                               3          1    Covered              
+#         bin <auto[0],auto[1]>                               1          1    Covered              
+#         bin <auto[1],auto[1]>                               1          1    Covered              
+# 
+# TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+# 
