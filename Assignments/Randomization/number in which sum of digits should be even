@@ -1,0 +1,40 @@
+class number;
+    rand int num;
+
+   constraint range{
+
+           num inside {[1:500]};
+           ((num/100) +
+     ((num/10)%10) +
+     (num%10)) % 2 == 0;
+   }
+
+   function void display();
+      $display("num = %0d ", num );
+   endfunction
+endclass
+
+module exmtb;
+
+  number obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//output
+run -all
+# num = 231
+# num = 55
+# num = 363
+# num = 233
+# num = 428
+# num = 374
+# num = 132
+# num = 190
+# num = 226
+# num = 457
