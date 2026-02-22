@@ -1,0 +1,44 @@
+class number;
+    rand bit[4:0]  bin;
+    bit [4:0] gray;
+
+
+     constraint binrange{
+ 
+             bin inside {[0:31]};   //upto 32 numbers
+    }
+
+    function void post_randomize();
+        gray = bin ^ (bin>>1);
+    endfunction
+
+   function void display();
+      $display("bin = %b gray = %b" , bin,gray);
+   endfunction
+
+endclass
+
+module exmtb;
+
+  number obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//OUTPUT
+run -all
+# bin = 00101 gray = 00111
+# bin = 00110 gray = 00101
+# bin = 10011 gray = 11010
+# bin = 11111 gray = 10000
+# bin = 11111 gray = 10000
+# bin = 01100 gray = 01010
+# bin = 01111 gray = 01000
+# bin = 01010 gray = 01111
+# bin = 00000 gray = 00000
+# bin = 10101 gray = 11111
