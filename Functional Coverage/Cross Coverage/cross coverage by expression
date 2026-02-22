@@ -1,0 +1,47 @@
+module Cons_tb;
+
+     byte a ,b;
+
+  covergroup cg;
+     C1: coverpoint a+b;
+     C2:   cross a,C1;  //we do not declare coverpoints so simulator automatically creates implicit coverpoints
+   endgroup
+    
+     
+  cg cg_inst = new();
+
+initial begin
+
+     repeat(500) begin
+          a = $urandom_range(-120,127);
+          b = $urandom_range(-110,113);
+          cg_inst.sample();
+     end
+end
+
+endmodule
+
+//OUTPUT
+
+COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /Cons_tb/cg                                      70.46%        100    Uncovered            
+#     covered/total bins:                                   595       4224                      
+#     missing/total bins:                                  3629       4224                      
+#     % Hit:                                             14.08%        100                      
+#     Coverpoint cg::C1                                 100.00%        100    Covered              
+#         covered/total bins:                                64         64                      
+#         missing/total bins:                                 0         64                      
+#         % Hit:                                        100.00%        100                      
+#     Coverpoint cg::a                                  100.00%        100    Covered              
+#         covered/total bins:                                64         64                      
+#         missing/total bins:                                 0         64                      
+#         % Hit:                                        100.00%        100                      
+#     Cross cg::C2                                       11.40%        100    Uncovered            
+#         covered/total bins:                               467       4096                      
+#         missing/total bins:                              3629       4096                      
+#         % Hit:                                         11.40%        100                      
+#  Covergroup instance \/Cons_tb/cg_inst                 70.46%        100    Uncovered 
