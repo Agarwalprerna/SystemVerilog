@@ -1,0 +1,46 @@
+class number;
+    rand int d0 ,d1,d2,d3;
+
+   constraint range{
+          d0 inside {[1:9]};
+          d1 inside {[0:9]};
+          d2 == d1;
+          d3 == d0;
+   
+        }
+
+   function int getnum();  //to produce  palindrome number 
+          return ( d0*1000 + d1*100 + d2*10 + d3);
+   endfunction
+
+   function void display();
+      $display("palindrome number = %0d", getnum() );
+   endfunction
+
+endclass
+
+module exmtb;
+
+  number obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//output
+
+# palindrome number = 8668
+# palindrome number = 6886
+# palindrome number = 5445
+# palindrome number = 1441
+# palindrome number = 1331
+# palindrome number = 4114
+# palindrome number = 6006
+# palindrome number = 8228
+# palindrome number = 5445
+# palindrome number = 6446
+
