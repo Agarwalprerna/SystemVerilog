@@ -1,0 +1,51 @@
+class number;
+    rand int digit[4];
+
+
+
+   constraint range{
+ 
+            foreach(digit[i])
+                  digit[i] inside {[0:9]};
+        }
+
+   constraint alternatedigit{
+    
+             foreach(digit[i])
+                 if(i%2 ==0)
+                     digit[i] % 2 ==0;  //even
+                 else
+                     digit[i] %2 ==1 ;  //odd
+          }
+
+   function void display();
+      $display("4 digit number = %0d%0d%0d%0d", digit[0] , digit[1] , digit[2] , digit[3] );
+   endfunction
+
+endclass
+
+module exmtb;
+
+  number obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//OUTPUT
+run -all
+# 4 digit number = 2165
+# 4 digit number = 4341
+# 4 digit number = 2309
+# 4 digit number = 8107
+# 4 digit number = 4945
+# 4 digit number = 2507
+# 4 digit number = 4345
+# 4 digit number = 6121
+# 4 digit number = 2927
+# 4 digit number = 6565
+
