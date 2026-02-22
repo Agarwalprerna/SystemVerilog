@@ -1,0 +1,45 @@
+
+class student ;
+       rand int age;
+        rand int marks;
+
+
+     constraint range1{
+             age inside {[15:25]};
+             marks inside {[0:100]};
+}
+    constraint range2 {
+                if(age < 20){ 
+                       marks > 70} ;         
+    }
+
+   function void display();
+      $display("age = %0d Marks = %0d" , age ,marks);
+   endfunction
+
+endclass
+
+module exmtb;
+
+  student  obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//OUTPUT
+run -all
+# age = 15 Marks = 78
+# age = 20 Marks = 32
+# age = 16 Marks = 79
+# age = 23 Marks = 62
+# age = 18 Marks = 73
+# age = 21 Marks = 96
+# age = 22 Marks = 40
+# age = 21 Marks = 39
+# age = 16 Marks = 76
+# age = 24 Marks = 75
