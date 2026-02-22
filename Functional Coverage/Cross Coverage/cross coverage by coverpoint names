@@ -1,0 +1,83 @@
+module Cons_tb;
+
+     int addr ,data;
+
+  covergroup cg;
+    
+     cp_addr: coverpoint addr{
+  
+          bins b1 = {[0:15]};
+          bins b2 = {[16:31]};
+     }
+
+     cp_data : coverpoint data{
+         bins b3 = {[0:7]};
+         bins b4 = {[8:15]};
+    }
+
+     cross cp_addr , cp_data;        //b1xb3 b1xb4 b2xb3 b2xb4  total bins = 4
+
+ endgroup
+
+ cg cg_inst = new();
+
+initial begin
+
+     repeat(10) begin
+          addr = $urandom_range(0,31);
+          data = $urandom_range(0,15);
+          cg_inst.sample();
+     end
+end
+
+endmodule
+
+//output
+COVERGROUP COVERAGE:
+# -----------------------------------------------------------------------------------------------
+# Covergroup                                             Metric       Goal    Status               
+#                                                                                               
+# -----------------------------------------------------------------------------------------------
+#  TYPE /Cons_tb/cg                                     100.00%        100    Covered              
+#     covered/total bins:                                     8          8                      
+#     missing/total bins:                                     0          8                      
+#     % Hit:                                            100.00%        100                      
+#     Coverpoint cg::cp_addr                            100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#     Coverpoint cg::cp_data                            100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#     Cross cg::#cross__0#                              100.00%        100    Covered              
+#         covered/total bins:                                 4          4                      
+#         missing/total bins:                                 0          4                      
+#         % Hit:                                        100.00%        100                      
+#  Covergroup instance \/Cons_tb/cg_inst                100.00%        100    Covered              
+#     covered/total bins:                                     8          8                      
+#     missing/total bins:                                     0          8                      
+#     % Hit:                                            100.00%        100                      
+#     Coverpoint cp_addr                                100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#         bin b1                                              6          1    Covered              
+#         bin b2                                              4          1    Covered              
+#     Coverpoint cp_data                                100.00%        100    Covered              
+#         covered/total bins:                                 2          2                      
+#         missing/total bins:                                 0          2                      
+#         % Hit:                                        100.00%        100                      
+#         bin b3                                              7          1    Covered              
+#         bin b4                                              3          1    Covered              
+#     Cross #cross__0#                                  100.00%        100    Covered              
+#         covered/total bins:                                 4          4                      
+#         missing/total bins:                                 0          4                      
+#         % Hit:                                        100.00%        100                      
+#         bin <b1,b3>                                         4          1    Covered              
+#         bin <b2,b3>                                         3          1    Covered              
+#         bin <b1,b4>                                         2          1    Covered              
+#         bin <b2,b4>                                         1          1    Covered              
+# 
+# TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+# 
