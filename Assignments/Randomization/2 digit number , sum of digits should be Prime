@@ -1,0 +1,48 @@
+
+class number;
+    rand int d1;  //digits 
+    rand int d2;
+
+
+     constraint range1{
+             d1 inside {[1:9]};
+             d2 inside {[0:9]};
+}
+   
+     constraint prime_sum {
+               (d1 + d2 ) inside {2,3,5,7,11,13,17,19};
+     }
+
+   function void display();
+       int sum ;
+       sum = d1+d2;
+        $display(" 2 digit  number = %0d%0d sum =%0d" , d1,d2 , sum);
+   endfunction
+
+endclass
+
+module exmtb;
+
+  number   obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//OUTPUT
+run -all
+#  2 digit  number = 32 sum =5
+#  2 digit  number = 30 sum =3
+#  2 digit  number = 74 sum =11
+#  2 digit  number = 92 sum =11
+#  2 digit  number = 52 sum =7
+#  2 digit  number = 21 sum =3
+#  2 digit  number = 41 sum =5
+#  2 digit  number = 61 sum =7
+#  2 digit  number = 43 sum =7
+#  2 digit  number = 20 sum =2
+
