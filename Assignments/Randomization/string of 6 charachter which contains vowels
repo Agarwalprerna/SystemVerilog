@@ -1,0 +1,41 @@
+
+class number;
+    rand byte str[6];
+
+ constraint vowels{
+          foreach(str[i])
+               str[i] inside { "A" , "E" , "I" ,"O", "U" , "a" , "e" , "i" ,"o" ,"u"};
+   }
+
+   function void display();
+      
+        $display(" string = %p",str);
+   endfunction
+
+endclass
+
+module exmtb;
+
+  number   obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//output
+run -all
+#  string = '{85, 117, 117, 105, 97, 69}
+#  string = '{101, 65, 101, 65, 97, 85}
+#  string = '{97, 85, 105, 101, 73, 73}
+#  string = '{101, 105, 65, 73, 105, 85}
+#  string = '{69, 97, 101, 105, 117, 117}
+#  string = '{73, 105, 105, 101, 79, 85}
+#  string = '{105, 79, 69, 111, 97, 117}
+#  string = '{117, 111, 73, 111, 69, 73}
+#  string = '{97, 105, 101, 117, 73, 111}
+#  string = '{117, 69, 111, 117, 85, 105}
+
