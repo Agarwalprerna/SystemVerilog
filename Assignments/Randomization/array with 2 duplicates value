@@ -1,0 +1,58 @@
+
+class array;
+    rand int arr[5];
+    rand int a,b,c;
+
+constraint abc{
+         unique{a,b,c};
+         a inside {[1:30]};
+         b inside {[1:30]};
+         c inside {[1:30]};
+
+   }
+ 
+constraint pattern{
+        // arr == '{a,b,a,b,c}; //produce error 
+          arr[0] == a;
+          arr[1] == b;
+          arr[2] == a;
+          arr[3] == b;
+          arr[4] == c;
+   }
+
+ function void post_randomize();
+          arr.shuffle();
+ endfunction
+
+   function void display();
+      
+        $display(" array = %p",arr);
+   endfunction
+
+endclass
+
+module exmtb;
+
+  array  obj = new();
+initial begin
+  
+  repeat(10) begin
+   obj.randomize();
+   obj.post_randomize();
+   obj.display();
+  end
+end
+endmodule
+
+//OUTPUT
+run -all
+#  array = '{27, 29, 27, 2, 29}
+#  array = '{7, 25, 7, 25, 21}
+#  array = '{11, 30, 30, 26, 11}
+#  array = '{25, 12, 25, 12, 13}
+#  array = '{8, 26, 26, 30, 8}
+#  array = '{9, 17, 17, 5, 5}
+#  array = '{8, 12, 7, 12, 7}
+#  array = '{6, 23, 6, 24, 23}
+#  array = '{16, 16, 4, 23, 23}
+#  array = '{27, 10, 10, 17, 17}
