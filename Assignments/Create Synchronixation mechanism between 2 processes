@@ -1,0 +1,35 @@
+
+module Synchromization_tb;
+
+  semaphore sync_Sem = new(0);
+
+  task A;
+
+   $display("A started");
+   #10;
+   sync_Sem.put(1);
+   $display("A finishes at  %0t" , $time);
+  endtask
+
+  task B;
+    $display("waiting");
+    sync_Sem.get(1);
+    $display("B continues at %0t after A finishes", $time);
+  endtask
+   
+initial begin
+    fork
+       A();
+       B();         
+    join
+end
+
+endmodule
+
+//OUTPUT
+run -all
+# A started
+# waiting
+# A finishes at  10
+# B continues at 10 after A finishes
+quit -sim
