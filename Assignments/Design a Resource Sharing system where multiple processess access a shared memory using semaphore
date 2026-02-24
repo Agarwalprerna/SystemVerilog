@@ -19,7 +19,8 @@ module resource_sharing_tb;
 
   initial begin
     mem_sem = new(2); // only 2 keys are available in the bucket
-    
+    //any 2 processes can enter ang get keys vlaue and other has to wait until it is avialable in bucket
+
     fork
       access_memory(1);  //process 1 
       access_memory(2);  //process 2
