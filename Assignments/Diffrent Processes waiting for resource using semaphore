@@ -1,0 +1,43 @@
+
+module resource_sharing_tb;
+
+//
+
+  semaphore Sem;
+
+  task automatic access_memory(int process);
+       $display("DMA %0d is requested at %0t" , process , $time);
+       Sem.get(1);
+
+        #10;
+       Sem.put(1);
+       $display("DMA %0d is completed at %0t" , process , $time);
+   
+  endtask
+
+  initial begin
+      Sem = new(2);
+    
+    //only 2 process access memory others has to wait , 
+  //after returning the key other processes are able to access
+    fork
+      access_memory(1);  //process 1 
+      access_memory(2);  //process 2
+      access_memory(3) ;  //process 3
+      access_memory(4);
+    join
+  end
+
+endmodule
+
+//OUTPUT
+run -all
+# DMA 1 is requested at 0
+# DMA 2 is requested at 0
+# DMA 3 is requested at 0
+# DMA 4 is requested at 0
+# DMA 1 is completed at 10
+# DMA 2 is completed at 10
+# DMA 3 is completed at 20
+# DMA 4 is completed at 20
+
