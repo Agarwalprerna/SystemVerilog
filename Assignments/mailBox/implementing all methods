@@ -1,0 +1,44 @@
+module exmtb;
+
+   mailbox #(int) mbox;
+
+initial begin
+    int data;
+    mbox = new(2) ;  //2 bounded mailbox
+       
+
+   $display("initial size = %0d" , mbox.num() );
+
+   mbox.put(10);
+  mbox.put(20);
+
+   //trying to add message
+   if( !mbox.try_put(30))
+      $display("try_put failed : MAILBOX FULL");
+
+ 
+   
+   mbox.peek(data);
+   $display("peeked value = %0d" , data);
+
+   //getting messages from mailbox
+
+    mbox.get(data);
+     $display("got value = %0d",data);
+
+   if( mbox.try_get(data))
+        $display("try_get success = %0d" , data);
+
+
+    $display("final size = %0d" , mbox.num() );
+end
+endmodule
+
+//OUTPUT
+run -all
+# initial size = 0
+# try_put failed : MAILBOX FULL
+# peeked value = 10
+# got value = 10
+# try_get success = 20
+# final size = 0
