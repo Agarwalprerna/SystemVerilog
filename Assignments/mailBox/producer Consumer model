@@ -1,0 +1,67 @@
+class producer;
+   mailbox #(int) mbox;
+
+  function new( mailbox #(int) mbox);
+     this.mbox = mbox;
+  endfunction
+
+  task run();
+     for(int i =0 ;i<5 ;i++ ) begin
+         $display("PRODUCER sending %0d" , i);
+         mbox.put(i);
+         #10;
+      end
+endtask
+endclass
+
+class consumer;
+
+   mailbox #(int) mbox;
+
+  function new(mailbox #(int) mbox);
+    this.mbox = mbox;
+   endfunction
+
+   task run();
+         int data;
+          forever begin
+              mbox.get(data);
+              $display("CONSUMER recieved %0d" , data);
+          end
+   endtask
+endclass
+
+
+module exmtb;
+  mailbox #(int) mbox = new();
+
+  //object creation 
+   producer obj1;
+   consumer obj2;
+
+initial begin
+    obj1 = new(mbox);
+    obj2 = new(mbox);
+
+  fork 
+     obj1.run();
+     obj2.run();
+  join
+
+#200
+ $finish;
+end
+endmodule
+
+    //OUTPUT
+    run -all
+# PRODUCER sending 0
+# CONSUMER recieved 0
+# PRODUCER sending 1
+# CONSUMER recieved 1
+# PRODUCER sending 2
+# CONSUMER recieved 2
+# PRODUCER sending 3
+# CONSUMER recieved 3
+# PRODUCER sending 4
+# CONSUMER recieved 4
