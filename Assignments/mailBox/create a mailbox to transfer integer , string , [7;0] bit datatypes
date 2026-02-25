@@ -1,0 +1,35 @@
+class packet;
+  
+   int id;
+   string name;
+   bit [7:0] data;
+
+   function new( int id , string name , bit [7:0] data);   //autmatically called when object creation
+     this.id = id;
+     this.name = name;
+     this.data = data;
+  endfunction
+
+endclass
+
+module exmtb;
+   mailbox #(packet) mbox;
+
+ initial begin
+
+    packet pkt;        //sending class object 
+    packet rcv_pkt;   //receiving class object 
+
+    mbox = new();
+   
+   //class object creation
+    pkt = new(1,"roy" ,8'hA5);
+    
+   mbox.put(pkt);   //putting object into mailbox
+
+   mbox.get(rcv_pkt);
+ 
+   $display("received=> id=%0d , name = %s , data = %0h" , rcv_pkt.id ,rcv_pkt.name , rcv_pkt.data );
+
+ end
+endmodule
