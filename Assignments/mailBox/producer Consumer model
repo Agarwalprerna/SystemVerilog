@@ -1,6 +1,8 @@
 class producer;
    mailbox #(int) mbox;
 
+
+//passing mailbox into class via construct
   function new( mailbox #(int) mbox);
      this.mbox = mbox;
   endfunction
