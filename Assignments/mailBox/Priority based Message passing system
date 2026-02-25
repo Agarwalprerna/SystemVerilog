@@ -1,0 +1,61 @@
+class priority_msg_system;
+   mailbox #(string) M1 ;  //high 
+   mailbox #(string) M2;   //low
+
+function new(mailbox #(string) m1 , mailbox #(string) m2);
+   this.M1 = m1;
+    this.M2 = m2;
+endfunction
+
+
+
+ task send( string data , bit is_high);
+   if(is_high)
+      M1.put(data);
+   else
+      M2.put(data);
+endtask
+
+task receive();
+     string i;
+     forever begin
+        if(M1.try_get(i) )
+           $display("high priority mailbox received => %s" , i);
+        else if(M2.try_get(i) )
+           $display("Low priority mailbox  received => %s" , i);
+        #5;
+     end
+endtask
+endclass
+
+module exmtb;
+  mailbox #(string) M1 = new();
+  mailbox #(string) M2 = new();
+
+  //object creation 
+   priority_msg_system obj1;
+
+
+initial begin
+    obj1 = new(M1, M2);
+    
+  fork 
+    obj1.send("hyy" , 0);
+    obj1.receive();
+    obj1.send("hello" , 1);
+    obj1.receive();
+    obj1.send("DMA access",1);
+    obj1.receive();
+  join
+
+#200
+ $finish;
+end
+endmodule
+
+
+//OUTPUT
+run -all
+# Low priority mailbox  received => hyy
+# high priority mailbox received => hello
+# high priority mailbox received => DMA access
