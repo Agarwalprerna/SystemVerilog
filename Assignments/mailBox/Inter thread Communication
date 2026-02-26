@@ -1,0 +1,31 @@
+module exmtb;
+
+    mailbox mbox = new();
+
+    task thread1();
+         mbox.put("hyy ");
+         $display("Thread 1 sent msg hyy");
+    endtask
+
+   task thread2();
+       string msg;
+       mbox.get(msg);
+       $display("thread 2 receives %s" , msg);
+  endtask
+         
+
+initial begin
+
+      fork 
+          thread1();
+          thread2();
+      join
+end
+endmodule
+
+//OUTPUT
+run -all
+# Thread 1 sent msg hyy
+# thread 2 receives hyy 
+
+
