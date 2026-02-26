@@ -1,0 +1,24 @@
+interface bus( input logic clk, input logic rst);
+
+    logic write;
+    logic read;
+    logic [7:0] data;
+endinterface
+
+
+module exmtb;
+   logic clk;
+   logic rst;
+
+  //instantiate interface
+  bus bus_inst(clk ,rst);
+
+  always #5 clk = ~clk;
+    initial clk =0;
+
+ initial begin
+    rst = 1;
+    #20
+    rst = 0;
+end
+endmodule
