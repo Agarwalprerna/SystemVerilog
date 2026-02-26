@@ -1,0 +1,27 @@
+module exmtb;
+
+    mailbox mbox = new();
+
+initial begin
+     
+      string s;
+      if(mbox.try_get(s))
+           $display("try_get succeeded %s" ,s);
+       else
+           $display("try_get failed");
+   
+
+      mbox.put("blocking method "get" data");
+      mbox.get(s);  //blocking method
+      $display("blocking get-> %s" , s);
+
+      if( mbox.try_get(s));
+              $display("try_get succeeded %s" ,s);
+end
+endmodule
+
+//OUTPUT
+run -all
+# try_get failed
+# blocking get-> blocking method get data
+# try_get succeeded blocking method get data
