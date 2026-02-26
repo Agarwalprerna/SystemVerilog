@@ -1,0 +1,34 @@
+module exmtb;
+
+    mailbox #(string) mbox = new();
+
+
+    task send_task( string task_name);
+      mbox.put(task_name);
+    endtask
+
+    task execute_task();
+    string i;
+    forever begin
+        mbox.get(i);
+        $display("Executing task -> %s" , i);
+    end
+    endtask
+
+
+
+initial begin
+         
+    send_task("greetings");
+    send_task("how are you?");
+    send_task("lets get into work");
+    execute_task();
+    
+end
+endmodule
+
+//OUTPUT
+run -all
+# Executing task -> greetings
+# Executing task -> how are you?
+# Executing task -> lets get into work
