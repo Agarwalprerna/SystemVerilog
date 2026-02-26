@@ -1,0 +1,40 @@
+
+//DRIVER MODULE
+module exp2( bus vif);
+  
+   always_ff @(posedge vif.clk or posedge vif.rst)begin
+      if(vif.rst)
+             vif.data <= 0;
+      else
+            vif.data <= vif.data + 1;
+   end
+endmodule
+
+
+//TESTBENCH
+interface bus( input logic clk, input logic rst);
+
+    logic write;
+    logic read;
+    logic [7:0] data;
+endinterface
+
+
+module exp2_tb;
+
+   logic clk , rst;
+
+  bus  bus_if_inst(clk ,rst);  //interface instantiate
+
+  exp2  dut( bus_if_inst) ;   //module instantiate
+
+  always #5 clk = ~clk;
+  initial clk =0;
+
+ initial begin
+    rst =1;
+    #20;
+    rst =0;
+end
+
+endmodule
