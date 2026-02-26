@@ -1,0 +1,34 @@
+module exmtb;
+
+    mailbox #(string) mbox = new();
+
+   task producer( string name , int data);
+       string msg;
+       msg = $sformatf( "%s= %d" ,name , data);
+       mbox.put(msg);
+   endtask
+
+   task consumer;
+      string i ;
+      repeat(3) begin   //you can repeat any no. of times 
+            mbox.get( i);
+              $display("consumer received = %d msg" , i);
+       end
+   endtask
+
+initial begin
+
+      fork 
+          producer("P1" , 10);
+          producer("P2" , 20);
+          producer("P3" , 30);
+          consumer();
+      join
+end
+endmodule
+
+//OUTPUT
+run -all
+# consumer received msg from P1=          10 
+# consumer received msg from  P2=          20 
+# consumer received msg from P3=          30 
