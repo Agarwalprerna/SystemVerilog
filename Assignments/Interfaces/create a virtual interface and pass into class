@@ -1,0 +1,80 @@
+interface bus( input logic clk);
+
+    logic [7:0] data;
+
+endinterface
+
+// interface passes into class 
+class monitor;
+
+   virtual bus vif; //virtual interface vif
+
+function new(virtual bus vif);
+  this.vif = vif;
+endfunction 
+
+
+   task display();
+       repeat(5) begin
+         @(posedge vif.clk);
+             $display("time = %0t data = %0d" , $time , vif.data);
+       end
+  endtask
+
+endclass
+
+
+module exmtb;
+   logic clk;  //input of interface 
+
+//instantiate interface
+  bus bus_if_inst(clk);
+
+
+//class instance
+  monitor obj;
+
+    initial clk =0;
+   always #5 clk = ~clk; 
+
+initial begin
+
+    obj = new(bus_if_inst);
+
+     for(int i =0 ; i< 5;i++)begin
+           bus_if_inst.data = 2*i;
+           obj.display();
+     end
+    
+end
+endmodule
+
+      //OUTPUT
+      time = 5 data = 0
+# time = 15 data = 0
+# time = 25 data = 0
+# time = 35 data = 0
+# time = 45 data = 0
+# time = 55 data = 2
+# time = 65 data = 2
+# time = 75 data = 2
+# time = 85 data = 2
+# time = 95 data = 2
+# time = 105 data = 4
+# time = 115 data = 4
+# time = 125 data = 4
+# time = 135 data = 4
+# time = 145 data = 4
+# time = 155 data = 6
+# time = 165 data = 6
+# time = 175 data = 6
+# time = 185 data = 6
+# time = 195 data = 6
+# time = 205 data = 8
+# time = 215 data = 8
+# time = 225 data = 8
+# time = 235 data = 8
+# time = 245 data = 8
+quit -sim
+# End time: 23:25:18 on Feb 27,2026, Elapsed time: 0:04:39
+# Errors: 0, Warnings: 0
