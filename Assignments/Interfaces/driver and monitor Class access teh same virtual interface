@@ -1,0 +1,68 @@
+interface Bus(input logic clk);
+    logic [7:0] data;
+endinterface
+
+
+
+class driver;
+   
+       virtual Bus vif;
+
+    function new(virtual Bus vif);
+       this.vif = vif;
+    endfunction
+
+   task run();
+         repeat(5) begin
+            @(posedge vif.clk);
+             vif.data <= $urandom_range(0,255);
+          end
+   endtask
+endclass
+
+class monitor;
+    
+        virtual Bus vif;
+    function new(virtual Bus vif);
+        this.vif = vif;
+     endfunction
+
+      task run();
+            repeat(5) begin
+               @(posedge vif.clk);
+                $display("monitor sees data = %0d" , vif.data);
+            end
+       endtask
+endclass
+
+module exmtb;
+    logic clk;
+
+     Bus bus_if_inst(clk);
+
+     driver D1;
+     monitor M1;
+
+      initial clk =0;
+       always #5 clk = ~clk;
+
+   initial begin
+       D1 = new(bus_if_inst);
+       M1 = new(bus_if_inst);
+
+     fork 
+       D1.run();
+       M1.run();
+     join
+   end
+
+endmodule
+
+
+       //OUTPUT
+       run
+# monitor sees data = x
+# monitor sees data = 1
+# monitor sees data = 103
+# monitor sees data = 60
+# monitor sees data = 203
