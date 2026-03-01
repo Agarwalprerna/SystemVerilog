@@ -1,0 +1,43 @@
+module exmtb;
+
+  class Inner;
+    int a;
+  endclass
+
+  class Outer;
+    Inner i;   //inner class object
+
+    function new();
+      i = new();
+    endfunction
+
+    function void deep_copy(Outer src);
+      i.a = src.i.a;
+    endfunction
+  endclass
+
+  initial begin
+    Outer o1;
+    Outer o2;
+
+    $display("\n--- Q4: Nested Deep Copy ---");
+
+    o1 = new();
+    o2 = new();
+
+    o1.i.a = 55;
+
+    o2.deep_copy(o1);
+
+    $display("Before change: o1.i.a=%0d  o2.i.a=%0d", o1.i.a, o2.i.a);
+
+    o1.i.a = 999;
+
+    $display("After  change: o1.i.a=%0d  o2.i.a=%0d", o1.i.a, o2.i.a);
+  end
+endmodule
+
+//OUTPUT
+# --- Q4: Nested Deep Copy ---
+# Before change: o1.i.a=55  o2.i.a=55
+# After  change: o1.i.a=999  o2.i.a=55
