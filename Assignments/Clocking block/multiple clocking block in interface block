@@ -1,0 +1,81 @@
+module exp2( 
+       input bit req , clk, 
+      output reg gnt);
+
+   always_ff@(posedge clk) begin
+       gnt<= req;
+   end
+
+endmodule
+
+//TB
+//to deal with the design port signals , create an interface
+
+interface IF(input bit clk);
+    logic gnt;
+    logic req;
+
+   clocking cb_0 @(posedge clk);
+        
+        output #5 req;
+   endclocking
+
+   clocking cb_1 @(posedge clk);
+        
+        output #2 req;
+   endclocking
+
+
+  clocking cb_2 @(posedge clk);
+        
+        output #0 req;
+   endclocking 
+
+
+
+endinterface
+
+//to drive inputs to the design 
+
+module exp2_tb;
+
+  logic clk;
+
+ //interface instantiate
+IF if0(.clk(clk));
+
+initial clk =0;
+always #10 clk = ~clk;
+
+initial begin
+  
+   if0.cb_0.req <=0;
+   if0.cb_1.req <=0;
+   if0.cb_2.req <=0;
+end
+
+//DUT instantiate
+exp2 DUT(.clk(clk) , .req(if0.req) ,.gnt(if0.gnt) );
+
+
+//task
+  task drive_req(int idx);
+         case(idx)
+           0: if0.cb_0.req <= 1;
+           1: if0.cb_1.req <= 1;
+           2: if0.cb_2.req <= 1;
+         endcase
+  endtask
+         
+//drive stimulus
+initial begin
+          for( int i =0 ;i<3 ; i++ ) begin
+               repeat(2) @(if0.cb_0) ;
+                     drive_req(i);
+          end
+
+end
+endmodule
+ 
+
+ 
