@@ -1,0 +1,38 @@
+
+module exmtb;
+
+  class C;
+    int x;
+
+    function new(C src = null);
+      if (src != null)
+        x = src.x;
+      else
+        x = 0;
+    endfunction
+  endclass
+
+  initial begin
+    C obj1;
+    C obj2;
+
+    $display("\n--- Q3: Copy using Constructor ---");
+
+    obj1 = new();
+    obj1.x = 50;
+
+    obj2 = new(obj1);
+
+    $display("Before change: obj1.x=%0d  obj2.x=%0d", obj1.x, obj2.x);
+
+    obj1.x = 200;
+
+    $display("After  change: obj1.x=%0d  obj2.x=%0d", obj1.x, obj2.x);
+  end
+endmodule
+
+//output
+
+# --- Q3: Copy using Constructor ---
+# Before change: obj1.x=50  obj2.x=50
+# After  change: obj1.x=200  obj2.x=50
