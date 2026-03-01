@@ -1,0 +1,106 @@
+//DUT
+module exp2( 
+       input bit req , clk, 
+      output reg gnt);
+
+   always_ff@(posedge clk) begin
+       gnt<= req;
+   end
+
+endmodule
+
+
+////to deal with the design port signals , create an interface
+
+interface IF(input bit clk);
+    logic gnt;
+    logic req;
+
+   clocking cb @(posedge clk);
+        input #1ns gnt;
+        output #5 req;
+   endclocking
+
+endinterface
+
+//to drive inputs to the design 
+
+module exp2_tb;
+
+  logic clk;
+
+ //interface instantiate
+
+IF if0(.clk(clk));
+
+initial clk =0;
+always #10 clk = ~clk;
+
+initial begin
+  
+   if0.cb.req <=0;
+end
+
+//DUT instantiate
+exp2 DUT(.clk(clk) , .req(if0.req) ,.gnt(if0.gnt) );
+
+
+//drive stimulus
+initial begin
+          bit [3:0] delay;
+   for( int i =0 ; i<10 ; i++)begin
+        delay = $urandom_range(0,10);
+      repeat(delay) @(posedge if0.clk);
+       if0.cb.req <= ~if0.cb.req;
+   end
+   #20;
+   $finish;
+end
+endmodule
+ 
+
+ 
+//Meaning
+Clocking block solves race conditions between TB and DUT.
+
+Without it:
+
+TB drives req
+
+DUT samples req
+
+If both happen at same delta cycle → race
+
+Clocking block creates:
+
+Controlled sampling time
+
+Controlled driving time
+
+output #5ns req;
+
+TB drives req 5ns after posedge clk
+
+So:
+
+Clock edge → wait 5ns → drive req
+
+This guarantees:
+
+DUT already sampled previous values
+
+No race
+
+🔸 input #1ns gnt;
+
+TB samples gnt 1ns after posedge clk
+
+So:
+
+Clock edge → wait 1ns → sample gnt
+
+This guarantees:
+
+DUT updated gnt
+
+TB reads stable value
