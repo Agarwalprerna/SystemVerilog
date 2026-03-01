@@ -1,0 +1,39 @@
+  class B;
+    int x;
+    int y;
+
+    function void copy(B src);
+      x = src.x;
+      y = src.y;
+    endfunction
+  endclass
+
+  initial begin
+    B obj1;
+    B obj2;
+
+    $display("\n--- Q2: Deep Copy (copy method) ---");
+
+    obj1 = new();
+    obj2 = new();
+
+    obj1.x = 10;
+    obj1.y = 20;
+
+    obj2.copy(obj1);
+
+    $display("Before change: obj1=(%0d,%0d)  obj2=(%0d,%0d)",
+             obj1.x, obj1.y, obj2.x, obj2.y);
+
+    obj1.x = 100;
+
+    $display("After  change: obj1=(%0d,%0d)  obj2=(%0d,%0d)",
+             obj1.x, obj1.y, obj2.x, obj2.y);
+  end
+endmodule
+
+
+//OUTPUT
+# --- Q2: Deep Copy (copy method) ---
+# Before change: obj1=(10,20)  obj2=(10,20)
+# After  change: obj1=(100,20)  obj2=(10,20)
