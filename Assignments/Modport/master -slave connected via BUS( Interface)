@@ -1,0 +1,94 @@
+interface Bus(input logic clk);
+  logic rst ;
+   logic [7:0] data;
+
+ //2 modport
+  modport master( output clk ,output rst , output data);
+  modport slave ( input clk ,input rst , input data);
+
+endinterface
+
+ 
+module master (Bus.master bus);
+
+
+  always @(posedge bus.clk) begin
+        if(bus.rst)
+            $display("master reset active at %0t" , $time);
+         else
+            $display("master data = %0d at %0t" , bus.data , $time);
+ end
+  
+ endmodule
+
+module slave( Bus.slave bus);
+    always @(posedge bus.clk)
+        $display("slave see at time = %0t data = %0d" , $time , bus.data);
+endmodule
+
+
+//Top 
+module Top_tb;
+         logic clk;
+        Bus intf(clk);  //interface instantiate
+     
+          //Module instantiate
+        master M(intf);
+        slave S(intf);
+
+    initial clk = 0;
+   always #5 clk = ~clk;
+
+  initial begin
+
+        intf.rst = 1;
+        intf.data =0;
+
+        #10;
+        intf.rst =0;
+
+         repeat(5) begin
+             @(posedge intf.clk);
+                intf.data = $urandom_range(0,255);
+         end
+     #20;
+     $finish;
+ end
+endmodule
+
+
+
+//OUTPUT
+run
+# master reset active at 5
+# slave sees at time = 5 data = 0
+# master data = 0 at 15
+# time = 15 data = 0
+# master data = 114 at 25
+# time = 25 data = 114
+# master data = 178 at 35
+# time = 35 data = 178
+# master data = 16 at 45
+# time = 45 data = 16
+# master data = 48 at 55
+# time = 55 data = 48
+# master data = 181 at 65
+# time = 65 data = 181
+# ** Note: $finish    : C:/intelFPGA/modelim_lab/Top_tb.sv(55)
+#    Time: 75 ps  Iteration: 0  Instance: /Top_tb
+# 1
+
+//understanding 
+Modport just defines:
+
+Who can write
+Who can read
+
+
+Master and Slave do NOT “communicate”.
+
+They:
+Access the same shared interface signals.
+Modport simply restricts who can drive or sample.
+
+It is structured shared wiring — not messaging.
