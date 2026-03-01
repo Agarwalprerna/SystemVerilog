@@ -1,0 +1,101 @@
+
+//DUT file
+module exp2 #(
+    parameter int N = 16,
+    parameter int n = $clog2(N)
+)(
+    input  logic clk,
+    input  logic rst,
+    input  logic up_down,     // 1 = up, 0 = down
+    output logic [n-1:0] count
+);
+
+always_ff @(posedge clk) begin
+    if (rst)
+        count <= '0;
+
+    else if (up_down) begin
+        if (count == N-1)
+            count <= '0;
+        else
+            count <= count + 1;
+    end
+
+    else begin
+        if (count == '0)
+            count <= N-1;
+        else
+            count <= count - 1;
+    end
+end
+
+endmodule
+       
+// TB file
+
+interface counter_IF #(parameter int N= 5)( input logic clk);
+
+  localparam int n = $clog2(N);
+
+logic rst , up_down ;
+logic [n-1:0] count;
+
+  clocking cb @(posedge clk);
+      output rst ;
+      output up_down;
+      input #3ns count;
+  endclocking
+
+endinterface
+
+module exp2_tb;
+
+       parameter int N = 7;
+  
+      logic clk;
+
+   //interface instantiate
+   counter_IF #(N) intf(clk);
+
+  //DUT instantiate
+  exp2 dut( .clk(clk),
+        .rst(intf.rst),
+        .up_down(intf.up_down),
+        .count(intf.count) ) ;
+
+  //clock generation
+   initial clk =0;
+   always #5 clk = ~clk;
+
+
+  //stimulus
+
+initial begin
+  
+           //initialize
+            intf.cb.rst <= 1;
+            intf.cb.up_down <= 1;
+
+        repeat (2) @(intf.cb) ;
+        intf.cb.rst <=0;
+
+         //count UP
+         repeat (20) @( intf.cb);
+ 
+        //change direction
+         intf.cb.up_down <= 0;
+
+         //count DOWN
+         repeat (20) @(intf.cb);      
+  
+       $finish;
+end
+
+initial begin
+    $monitor("time = %0t ,rst = %0d , up_down = %0d , count =%0d" , $time , intf.rst , intf.up_down , intf.count );
+
+end
+
+
+endmodule
+     
