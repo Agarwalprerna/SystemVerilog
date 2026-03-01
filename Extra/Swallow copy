@@ -1,0 +1,33 @@
+
+
+module exmtb;
+
+  class A;
+    int x;
+  endclass
+
+  initial begin
+    A obj1;
+    A obj2;
+
+    $display("\n--- Q1: Shallow Copy ---");
+
+    obj1 = new();
+    obj2 = new();
+
+    obj1.x = 10;
+
+    obj2 = obj1;
+
+    $display("Before change: obj1.x=%0d  obj2.x=%0d", obj1.x, obj2.x);
+
+    obj1.x = 99;
+
+    $display("After  change: obj1.x=%0d  obj2.x=%0d", obj1.x, obj2.x);
+  end
+endmodule
+
+//OUTPUT
+# --- Q1: Shallow Copy ---
+# Before change: obj1.x=10  obj2.x=10
+# After  change: obj1.x=99  obj2.x=99
