@@ -1,0 +1,16 @@
+module exmtb;
+
+int a = 10 , b =5;
+
+initial begin
+   assert(a>b)
+      $display("PASS a>b");
+   else
+       $error("FAIL : a<b");
+end
+
+endmodule
+
+
+//output
+# PASS a>b
