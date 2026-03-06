@@ -1,0 +1,51 @@
+module exmtb;
+  
+  logic clk =0;
+  logic req, ack;
+
+always #5 clk = ~clk;
+
+
+  property p1;
+     @(posedge clk) $rose(req) |=>  ack;   //If req is TRUE at the clock edge, then ack must become TRUE 1 clock cycle later.
+  endproperty 
+
+ A1: assert property (p1)
+         $info("assertion pass");
+     else
+          $error("assertion fail");
+
+
+initial begin
+    req =0;
+    ack =0;
+
+    #10 req = 1;
+#10 ack = 1;
+
+#10 req = 0;
+
+#10 req = 1;
+#10 ack = 0;
+
+#10 req = 0;
+
+#10 req = 1;
+#10 ack = 1;
+
+    #50;
+	    $finish;
+end
+
+endmodule
+
+//OUTPUT
+un
+# ** Info: assertion pass
+#    Time: 25 ps Started: 15 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Error: assertion fail
+#    Time: 55 ps Started: 45 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Info: assertion pass
+#    Time: 85 ps Started: 75 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Note: $finish    : C:/intelFPGA/modelim_lab/exmtb.sv(37)
+#    Time: 130 ps  Iteration: 0  Instance: /exmtb
