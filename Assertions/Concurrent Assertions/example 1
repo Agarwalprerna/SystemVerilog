@@ -1,0 +1,53 @@
+module exmtb;
+  
+  logic clk =0;
+  logic req, ack;
+
+always #5 clk = ~clk;
+
+
+  property p1;
+     @(posedge clk) req |-> ##1 ack;   //If req is TRUE at the clock edge, then ack must become TRUE 1 clock cycle later.
+  endproperty 
+
+ A1: assert property (p1)
+         $info("assertion pass");
+     else
+          $error("assertion fail");
+
+
+initial begin
+    req =0;
+    ack =0;
+
+    #10;
+    req = 1;     //req asserted
+    #10 ack =1;   //correct ack signal after 1 clcok cycle delay
+
+    #10
+     req = 1;    //req asserted
+      ack =0;   // incorrect
+
+    #50;
+    $finish;
+end
+
+endmodule
+
+//OUTPUT
+run
+# ** Info: assertion pass
+#    Time: 25 ps Started: 15 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Error: assertion fail
+#    Time: 35 ps Started: 25 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 45 ps Started: 35 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 55 ps Started: 45 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 65 ps Started: 55 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 75 ps Started: 65 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Note: $finish    : C:/intelFPGA/modelim_lab/exmtb.sv(32)
+#    Time: 80 ps  Iteration: 0  Instance: /exmtb
+# 1
