@@ -1,0 +1,19 @@
+module exmtb;
+  
+  logic [3:0] data;
+  integer count;
+
+initial begin
+   data = 4'b1z01;   //checks for X and Z bits
+   if($isunknown(data))
+       $display("data has unknown bits");
+   else
+       $display("NO unknown bits");
+
+end
+endmodule
+
+//output
+run
+# data has unknown bits
+
