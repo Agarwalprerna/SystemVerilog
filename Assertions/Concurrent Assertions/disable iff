@@ -1,0 +1,60 @@
+module exmtb;
+  
+   logic clk =0;
+  logic rst;
+  logic req;
+  logic ack;
+
+ always #10 clk = ~clk;
+
+property p1;
+   @(posedge clk) disable iff(!rst)    //assertion would not be evaluated during Reset condition
+    req  |=> ack;
+endproperty
+
+A1 : assert property(p1)
+       $info("assertion PASS at time = %0t" , $time);
+    else
+       $error("Assertion FAIL at time = %0t" , $time);
+
+
+initial begin
+   
+      //reset active
+      rst = 0;    
+      req = 0;
+      ack =0;
+
+       #12 rst = 1;
+
+      //correct handshake
+       #8 req = 1;
+        #20 ack  =1;
+
+      //incorrect handshake
+      #10 req = 1;
+       ack =0;
+
+         //correct
+       #20 req = 1;
+        #20 ack =1;
+
+        #40 $finish;
+end
+
+  
+endmodule
+
+  //output
+  run
+# ** Info: assertion PASS at time = 50
+#    Time: 50 ps Started: 30 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: Assertion FAIL at time = 70
+#    Time: 70 ps Started: 50 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 18
+# ** Error: Assertion FAIL at time = 90
+#    Time: 90 ps Started: 70 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 18
+# ** Info: assertion PASS at time = 110
+#    Time: 110 ps Started: 90 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Note: $finish    : C:/intelFPGA/modelim_lab/exmtb.sv(42)
+#    Time: 130 ps  Iteration: 0  Instance: /exmtb
+# 1
