@@ -1,0 +1,51 @@
+module exmtb;
+  
+  logic clk =0;
+  logic data;
+
+always #5 clk = ~clk;
+
+
+property p1;
+    @(posedge clk) $changed(data);  // report when data toggles (assertion pass)
+endproperty
+
+A1: assert property(p1)
+         $info("assertion Pass");
+    else
+         $error("assertion fail");
+
+initial begin
+  
+    data = 1;   //after t=0
+    #10 data = 0;  // after t=10
+   #20 data = 1;   //after t=30
+   #10 data = 0;   //after t = 40
+    #50 $finish;
+end
+endmodule
+
+
+//OUTPUT
+un
+# ** Info: assertion Pass
+#    Time: 5 ps Started: 5 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Info: assertion Pass
+#    Time: 15 ps Started: 15 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Error: assertion fail
+#    Time: 25 ps Started: 25 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Info: assertion Pass
+#    Time: 35 ps Started: 35 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Info: assertion Pass
+#    Time: 45 ps Started: 45 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 14
+# ** Error: assertion fail
+#    Time: 55 ps Started: 55 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 65 ps Started: 65 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 75 ps Started: 75 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Error: assertion fail
+#    Time: 85 ps Started: 85 ps  Scope: exmtb.A1 File: C:/intelFPGA/modelim_lab/exmtb.sv Line: 16
+# ** Note: $finish    : C:/intelFPGA/modelim_lab/exmtb.sv(24)
+#    Time: 90 ps  Iteration: 0  Instance: /exmtb
+# 1
