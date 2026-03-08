@@ -1,0 +1,19 @@
+module exmtb;
+  
+  logic [7:0] data;
+  integer count;
+
+initial begin
+   data = 8'b10110110;
+   if($onehot(data))   // exactly 1 bit should be 1 
+       $display("Yes Onehot");   
+   else
+       $display("NOT onehot");
+
+end
+endmodule
+
+
+//OUTPUT
+run
+# NOT onehot
