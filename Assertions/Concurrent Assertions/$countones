@@ -1,0 +1,15 @@
+module exmtb;
+  
+  logic [7:0] data;
+  integer count;
+
+initial begin
+   data = 7'b10110110;
+   count = $countones(data);  //count no. of  1s in a vector type variable
+
+   $display("countones = %0d" , count);
+end
+endmodule
+
+//Output
+count  = 5
