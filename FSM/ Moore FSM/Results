@@ -1,0 +1,26 @@
+vsim work.FSM_tb
+# vsim work.FSM_tb 
+# Start time: 14:17:37 on Apr 06,2026
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "FSM_exp(fast)".
+# Loading sv_std.std
+# Loading work.FSM_tb(fast)
+# Loading work.FSM_exp(fast)
+add wave  \
+sim:/FSM_tb/clk \
+sim:/FSM_tb/out \
+sim:/FSM_tb/rst \
+sim:/FSM_tb/x
+run -all
+# ** Error: FSM entered unkown state
+#    Time: 5 ns Started: 5 ns  Scope: FSM_tb.unknown_assert File: FSM_tb.sv Line: 42
+# ** Note: $finish    : FSM_tb.sv(59)
+#    Time: 100 ns  Iteration: 0  Instance: /FSM_tb
+# 1
+# Break in Module FSM_tb at FSM_tb.sv line 59
+
+
+
+Total Coverage obtained  from Asertions = 66.67%
+Assertions count = 3
+Assertion Hit = 2
