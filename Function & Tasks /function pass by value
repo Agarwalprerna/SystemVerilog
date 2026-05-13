@@ -1,0 +1,25 @@
+// in pass by value  , a copy of variable is passed to the function , any modification inside the function doesn't affect the original variable
+
+
+module tb;
+    function void increament_value(input int a);    
+            a = a+1;
+            $display("inside function : a=%0d",a);
+    endfunction 
+
+int num=10;
+
+initial begin 
+         $display("before function : num=%0d" , num);
+         increment_value(num);
+         $display("after function : num=%0d ",num);
+end
+endodule
+
+//output
+Before Function : num = 10
+Inside Function : a = 11
+After Function  : num = 10
+
+//here varible a is passed by value , so function copies this argument as locally .  
+Changes inside the function do not modify the original variable "num".  
