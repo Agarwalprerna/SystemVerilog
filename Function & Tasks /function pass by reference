@@ -1,0 +1,31 @@
+//In pass by reference, the actual variable memory location is passed. Any modification inside the function directly affects the original variable.”
+
+module tb;
+
+function void increment_ref(ref int a);
+
+    a = a + 1;
+
+    $display("Inside Function : a = %0d", a);
+
+endfunction
+
+int num = 10;
+
+initial begin
+
+    $display("Before Function : num = %0d", num);
+
+    increment_ref(num);
+
+    $display("After Function  : num = %0d", num);
+
+end
+
+endmodule
+
+
+//output 
+Before Function : num = 10
+Inside Function : a = 11
+After Function  : num = 11
