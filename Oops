@@ -1,0 +1,230 @@
+
+
+//INHERITENCE
+
+class parent_packet;
+
+       bit [7:0] addr;
+
+       function void display_p();
+             $display("value of addr: %0h", addr);
+       endfucntion
+endclass
+
+class child_packet extends parent_packet;
+  int data;
+
+  function void display_c();
+           $display("value of data=%0d",data);
+           super.display_p();            //call parent class constructor
+
+endfunction
+
+endclass
+
+module tb;
+initial begin
+
+         //we dont need to create separate objects for parent and child class beacuse this is inheretency
+          child_packet p1;
+          p1 = new();
+
+          //we can access parent properties by just creating child object only as we have used super keyword in child property
+
+         p1.addr = 8'hFF;   //Parent attribute
+         p1.data = 5;          //child attribute
+
+         p1.display_c();      //child method
+end
+endmodule
+ //output : value of data =5
+            value of addr = 8'hFF
+
+
+//METHOD OVERDDING THROUGH INHERENTANCE
+
+class parent_packet;
+
+       bit [7:0] addr;
+
+       function void display();         
+             $display("value of addr: %0h", addr);
+       endfucntion
+endclass
+
+class child_packet extends parent_packet;
+  int data;
+
+  function void display();             //child class method name should be same as in the parent class then overidding takes place 
+           $display("value of data=%0d",data);     //child class provides their own implemenation of members
+endfunction
+
+endclass
+
+module tb;
+
+   initial begin
+       child_packet p1 = new();  //child object only 
+
+       p1.addr = 8'hAB;
+       p1.data = 14;
+       p1.display();        
+
+end
+endmodule
+//output: value of data=14
+
+
+
+//POLYMORPHISOM
+parent class handle can hold objects of multple child classes and can accesss the methods properties of child classses directly from parent class handle.
+conditions:
+1. parent class method should be declared as virtual
+2. method name should be the same in both parent and child class
+3. assign child class objects to  a parent class handle using = operator
+
+
+class parent;
+     virtual function void display();
+         $display("inside parent class");
+     endfunction
+endclass
+
+class child1 extends parent;
+   function void display();
+          $display("inside child class 1");
+endfucntion
+endclass
+
+class child2 extends parent;
+   function void display();
+         $display("inside child class 2");
+endfunction
+endclass
+
+module tb;
+   initial begin
+          parent p1; //handle
+
+           child1 C1= new();
+           child2 C2 = new();
+
+          //one object can take on many forms
+           p1 = C1;
+           p1 = C2;
+
+           p1.display();
+end
+endmodule
+
+//Encapsulation
+restricts direct access to class members from outside the class by prefixing class members with keyword like local , protected so that prevents from accidental 
+corruption of data members and methods of class 
+
+class parent;
+    local int a;
+
+endclass
+
+program main;
+     initial begin
+         parent p = new();
+        p.a = 55;           //member is accessed from its own class , not oustsdie of this class
+     end
+endprogram 
+
+-> so to access local qualifiers then define method 
+class packet;
+     local int a;
+
+     task set(int b);
+          a=b;
+          $display(a);
+    endtask
+endclass
+
+program main;
+     initial begin
+           parent p = new();
+           p.set(77);
+     end
+endprogram 
+//output =77 because local member accsible to its own class only 
+
+-> if local member assigned in child class
+class parent;
+    local int a;
+
+endclass
+
+class child extends parent;
+    function new();
+           a=10;
+    endfunction
+endclass
+output-  local member 'a' of parent is not visoble to scope child
+
+
+protected qualifier- it is required to access the protected class member only by derived classs 
+if we try to access it outside the class by usng object handle this leads to error
+
+class parent;
+ protected int a;
+
+       function new( int b);
+            a = b+10;
+      endfunction
+endclass
+
+class child extends parent;
+
+      function new(int b);
+          super.new(b);   //parent cosntructor 
+      endfunction
+
+     function void incr_addr();
+            a++;
+            $display(a = %0d" ,a);
+      endfunction
+endclass
+
+module tb;
+ inital begin
+        child C = new(10);
+        c.incr_addr();  //accessing protected member in extended class
+  end
+endmodule
+//output - a=21
+
+
+
+//DATA ABSTRACTION
+
+virtual class packet;
+     bit [7:0] addr;
+     //abstact method or pure virtual function 
+       pure virtual function void display();   //only prototype is provided - hides the full implementation details of objects
+endclass
+
+class packet2 extends packet;
+
+        //implement the abstract method 
+        function void display();
+                 $display(" value of addr =%0h",addr);   //parent properties
+        endfunction
+ endclass    
+
+module tb;
+      initial begin
+            //virtual class cant be instantiated 
+            packet2 p ;   
+            p = new() ;   //child object only
+
+            p.addr = 8'hAC;
+            p.display();
+end
+endmodule
+//output: value of addr = AC
+
+            
+
