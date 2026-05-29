@@ -1,0 +1,20 @@
+
+module tb;
+    int queue[$:256];
+
+initial begin
+
+           //populating  the queue using puch_back()
+
+          for (int i=0 ;i<256;i++)begin
+                 queue.push_back(i*10);    //multiple of ten
+          end
+
+            //accessing the Queue
+
+          foreach(queue[i]) 
+              $display(" Element at index %0d = %0d" , i,queue[i] );
+
+end
+endmodule
+
