@@ -1,0 +1,25 @@
+
+moduel queueexp;
+
+     int queue[$];
+
+
+initial begin
+
+       queue =  {7, 9,0,6} ; //initializing Queue
+
+       //accessing Queue with fixed  index range
+
+       foreach( queue[i])
+            $display(" queue[%0d] = %0d" ,i,queue[i] );
+
+
+    //accessing queue with random index range
+     repeat(5) begin
+         index_random = $urandom_range(0,6) ;  //generating random index 
+         $display(" element at index %0d = %0d" , index_random  , queue[index_random] );
+     end
+end
+
+endmodule
+
