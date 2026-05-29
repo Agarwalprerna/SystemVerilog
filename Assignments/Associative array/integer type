@@ -1,0 +1,66 @@
+module tb;
+
+    int arr[int] ;
+
+
+    initial begin
+
+        //initializing
+        arr[0] = 100;
+        arr[10] = 129;
+        arr[20] = 300;
+        arr[30] = 400;
+
+        $display("-------------initial array-------");
+        foreach( arr[i])
+            $display("arr[%0d] = %0d" ,i,arr[i] );
+
+        // num() method
+        $display("\n Number of elements = %0d" , arr.num() );
+
+        ///EXISTS method
+        if(arr.exists(30))
+                $display("index 30 exists");
+
+
+        //first() method
+        int index;
+        if(arr.first(index))
+              $display("first indexx=%0d , value = %0d" , index , arr[index]);
+
+
+        //last method
+        if(arr.last(index))
+              %display("last index=%0d , value = %0d" ,index,arr[index]);
+
+        //next()  method
+        index = 20;
+        if(arr.next(index))
+              $display("next index after 20  = %0d, value = %0d" , index , arr[index]);
+
+        //prev()
+        index = 10;
+        if(arr.prev(index))
+              $display("previous index before 10 =%0d , value = %0d" , index , arr[index]);
+
+
+         //iteration using first() + next()  or another is using foreach
+
+         if(arr.first(index))begin
+              do begin
+                    $display("arr[%0d] = %0d" , index , arr[index]);
+              end
+              while(arr.next(index));
+        end
+
+
+        //delete single element
+        arr.delete(0);
+        foreach(arr[i])
+               $display("arr[%0d] = %0d" , i,arr[i]);
+
+
+       end
+
+   endmodule
+   
