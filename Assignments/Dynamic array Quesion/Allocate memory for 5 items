@@ -1,0 +1,25 @@
+module tb;
+
+     int arr[]; //integers array
+
+initial begin
+
+       arr = new[5] //allocating memory for 5 elements
+
+       //initializing array
+       foreach(arr[i])
+             arr[i] = (i+1) *10;
+
+      //displaying array
+      forech(arr[i])
+            $display("arr[%0d] = %0d" ,i,arr[i]);
+
+
+      //size
+       $display("size = %0d" ,arr.size());
+
+     //delete complete aray
+      arr.delete)_;
+     $display("size after delete = %0d" ,arr.size());
+end
+endmodule
