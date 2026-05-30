@@ -1,0 +1,24 @@
+
+module que3;
+
+      int arr[];
+      int max;
+
+ initial begin
+
+       arr = new[6];
+
+      //initialising the array
+       arr = '{4,6,7,9,5,2};
+
+       max = arr[0];
+
+      foreach(arr[i])
+            if(arr[i] > max)
+                max = arr[i];
+
+      $display("maximum element in array =%0d" ,max);
+end
+endmodule
+
+        
