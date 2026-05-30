@@ -1,0 +1,42 @@
+
+module tb;
+
+     string student_marks[string];
+
+initial begin
+
+    student_marks["Ram"] = "89";
+    student_marks["Raman"] = "45";
+    student_marks["Soham"] = "60";
+
+    //or student_marks = '{ "Ram" : "89" , "Raman" :"45" , "Soham" : "60"};
+
+//displaying the array
+foreach(student_marks[i])
+    $display("%s => %s " , i , student_marks[i]);
+
+
+if(student_marks.exists("Ram"))
+    $display("\n Ram record exitsts");
+
+
+//get first index and last index
+string sindex;  //variable for index
+
+if(stident_marks.first(sindex))begin
+    $display("%s = > %s" , sindex , student_marks[sindex]);
+end
+
+string sindex = "Soham";
+if(student_marks.prev(sindex))begin
+   $display("%s => %s " , sindex, student_marks[sindex]);
+
+//delete
+student_marks.delete("Raman");
+
+foreach(student_marks[i])
+    $display(" student_marks[%s] = %s " , i , student_marks[i] );
+
+end
+
+endmodule
