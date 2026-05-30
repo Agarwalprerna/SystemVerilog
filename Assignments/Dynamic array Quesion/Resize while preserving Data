@@ -1,0 +1,29 @@
+//10 20 30 40
+//Resize the array to size 8 while preserving old data and initialize new locations with 100.
+//10 20 30 40 100 100 100 100
+
+moduel tb;
+
+      int arr[];
+
+initial begin
+
+     arr = new[4];
+
+     foreach(arr[i])
+          arr[i] = (i+1)*10;
+
+    //resing the array 
+    arr = new[arr.size() + 4](arr)  or arr = new[8](arr);
+
+    //adding new element value 100
+    for( int i=4 ; i<8;i++) 
+          arr[i] = 100;
+
+ //printing the array
+  foreach(arr[i])
+      $display( arr[%0d] = %0d" ,i,arr[i]);
+
+end
+endmodule
+
