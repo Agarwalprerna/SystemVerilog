@@ -1,0 +1,127 @@
+1. Generate random Number between 0 and 9 
+
+module tb;
+   int num;
+
+   initial begin
+       repeat(5)begin
+        num = $urandom(0,9);          // or num = $random % 10;
+        $display("random number = %0d" , num);
+      end
+   end
+endmodule
+
+2. Generate Random Numbers between MIN 100 and MAX 200 as variable
+module tb;
+   int num;
+   int MIN  = 100;
+   int MAX = 200;
+
+  initial begin
+       num = MIN +  ($urandom % (MAX -MIN));
+       $display("%0d", num);
+  end
+endmodule
+
+3. Generate random Real Numbers 12.34, 56.58, 45.89..
+
+module tb;
+  real r;
+  longint unsigned bits;
+
+ initial begin
+       bits = $urandom();   //generate random numbers 0 to 2**31
+       r = $bitstoreal(bits);
+       $display("Real = %f" , r);
+end
+endmodule
+  //OR
+
+real r;
+r = $urandom_range(10000,0)/100.0 ;
+
+4. Repeatable Randomization using seeds
+
+module tb;
+    int seed = 25;
+
+    initial begin
+         repeat(5)
+           $display("%0d" , $urandom(seed));
+    end
+endmodule
+
+5. Generate values between 1 and 100 using dist_uniform() 
+
+module tb;
+  int seed = 10;
+  int value;
+
+  initial begin
+       repeat(10)begin
+             value = $dist_uniform(seed ,1,100);  //generate numbers uniformly distributed between MIN and MAX
+             $display("%0d", value);
+       end
+end
+endmodule
+
+
+6. using randomize() without rand , randc variables
+
+class packet;
+ int addr;
+endclass
+
+module tb;
+  packet p = new();
+
+initial begin
+    p.randomize(addr);
+    $display("%0d" , p.addr);
+end
+
+endmodule
+
+7. inline constraint without constraint block
+Generate address between 100 and 200 using inline 
+
+class packet;
+   int addr;
+endclass
+
+module tb;
+  packet p = new();
+
+initial begin
+
+    if( p.randomize(addr) with { addr >50 ; addr <100 ;})
+       $display("%0d" ,p.addr);
+     else
+       $display("failed randomization");
+end
+endmodule
+
+
+8. Random Even Numbers between 0 and 100
+
+module tb;
+   int n;
+
+initial begin
+     n = ($urandom_range(0,50)) *2;
+     $display("generated %0d" , n);
+ end
+endmodule
+
+
+
+
+
+
+
+
+
+      
+
+
+
