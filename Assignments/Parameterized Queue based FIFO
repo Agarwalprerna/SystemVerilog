@@ -1,0 +1,58 @@
+
+class fifo #( type T = int , int Depth = 8);
+//DEPTH controls FIFO size
+
+ T q[$]; //Dynamic Queue
+
+     function void push( T data);
+           if( q.size() < Depth) 
+               q.push_back(data);
+           else
+               $display("FIFO full");
+    endfunction
+
+
+     function T pop();
+          if( q.size() >0)
+              return q.pop_front();
+          else begin
+               $display("FIFO Empty");
+               return 0;
+          end
+   endfunction
+
+     function T size();
+          return q.size();
+     endfunction
+
+     function T peek();
+          if(q.size() >0)
+              return q[0];
+          else begin
+              $display("FIFO EMPTY");
+              return 0;
+        end
+    endfunction
+
+
+endclass
+
+
+module tb;
+
+    fifo #(int , 7) f;   /instance created
+
+initial begin
+      f = new();
+
+      f.push(30);
+      f.push(10);
+      f.pop();
+
+      $display("currrent size of fifo = %0d" , f.size() );
+      $display("front element of fifo = %0d"  f.peek());
+end
+endmodule
+
+     
+
