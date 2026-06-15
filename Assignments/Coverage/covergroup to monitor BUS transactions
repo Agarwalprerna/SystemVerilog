@@ -1,0 +1,23 @@
+class  BUS;
+    logic [7:0] data;
+    logic [3:0] addr;
+
+  covergroup cg @(posedge clk);
+   //to cover different scenarios
+
+       coverpoint addr{
+           bins all_addrs[] = {[10:15]};
+       }
+
+        coverpoint data{
+           bins low = {[0:63]};
+           bins high = {[64:255]};
+        }
+endgroup
+
+       function new();
+           cg = new();
+       endfunction
+
+endclass
+
