@@ -1,0 +1,29 @@
+
+interface alu_if( input  bit clk);
+     logic [3:0] a ,b;
+     logic [3:0] result;
+     logic op;
+endinterface
+
+//RTL 
+module alu(alu_if intf);
+  always_ff @(posedge intf.clk) begin
+       if(intf.op == 0)
+           intf.result <= intf.a + intf.b;
+       else
+           intf.result <= intf.a - intf.b;
+  end
+endmodule
+
+
+
+module tb;
+    logic clk;
+
+     alu_if intf(clk);  //interface instiated
+     alu dut(intf);   //RTL module instantiated
+
+
+endmodule
+
+     
