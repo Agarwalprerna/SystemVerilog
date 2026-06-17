@@ -1,0 +1,22 @@
+
+typedef enum {IDLE , READ,WRITE} state_t;
+
+class fsm;
+    state_t currentstate;
+
+
+   function void nextstate( state_t next_state);
+       case(next_state)
+         IDLE: $display("state IDLE");
+         READ: $display("state READ");
+         WRITE :$display("state Write");
+         default: $display("unknown");
+      endcase
+  endfunction
+
+endclass
+
+
+// here we have to define functions to have cases of nextstate in the class 
+in RTL , we can write cases in always procedural block
+
