@@ -1,0 +1,21 @@
+
+class pkt;
+ rand int data;
+endclass
+
+  module tb;
+    pkt pkt_arr[10];  //dyamic array of packets
+
+   initial begin
+     //initialize instances but first assign memory to all objects 
+     foreach(pkt_arr[i])begin
+          pkt_arr[i] = new() ;  //memory assign
+           pkt_arr[i].randomize() with { data inside {[0:100]} };
+          $display("pkt[%0d] = %0d" , i,pkt_arr[i].data);
+    end
+  end
+
+endmodule
+      
+          
+     
