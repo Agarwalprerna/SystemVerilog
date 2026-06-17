@@ -1,0 +1,35 @@
+
+ //parent class
+class packet;
+     rand bit [7:0] addr;
+
+   virtual function void display();
+        $display("packet address = %0d" , addr);
+   endfunction
+endclass
+
+//child classs
+class data_packet extends packet;
+     rand bit [31:0] data;
+
+   function void display();
+      super.display();
+      $display("data = &0h", data);
+  endfunction
+
+endclass
+
+module tb;
+    data_packet  p;
+
+initial begin
+   p = new();
+   p.addr = 8'hFF;
+   P.data = 32'hFABC_DEC2;
+   p.display();
+end
+endmodule
+
+
+
+ 
