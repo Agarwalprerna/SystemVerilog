@@ -1,0 +1,15 @@
+
+class  addr_gen();
+     rand [31:0] addr;
+endclass
+
+module tb;
+   addr_gen O1;
+
+initial begin
+  O1  = new();
+
+  void'(O1.randomize() with { addr inside {[32'h1000:32'h2000]}; addr %16 ==0; } );
+  $display("aligned address = %0h" , O1.addr);
+end
+endmodule
