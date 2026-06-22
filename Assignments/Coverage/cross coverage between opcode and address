@@ -1,0 +1,21 @@
+module tb;
+  logic [3:0] opcode;
+  logic [7:0] address;
+
+  covergroup cg @(posedge clk);
+
+       coverpoint address{
+    bins lowrange = {[0:63]};
+    bins midrange = {[64:90]};
+    bins highrange ={[91:128]};
+  }
+
+    coverpoint opcode ;
+
+    cross opcode ,address;
+endgroup
+
+  initial begin
+  cg = new();
+end
+endmodule
