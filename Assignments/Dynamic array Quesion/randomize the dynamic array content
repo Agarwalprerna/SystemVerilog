@@ -1,0 +1,13 @@
+
+class memblock;
+
+   rand bit [7:0] mem[];
+
+   constraint c1{
+      mem.size() == 8;
+
+     //randomizing the content
+     foreach(mem[i])
+        mem[i] inside {[0:255]};
+     }
+endclass
