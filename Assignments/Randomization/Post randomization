@@ -1,0 +1,21 @@
+
+class transaction;
+   rand a , b ,sum;
+
+  function void post_randomize();
+      sum = a+b;
+  endfunction
+
+endclass
+
+module tb;
+   transaction = tr;
+
+ initial begin
+     tr = new();
+
+     void'(tr.randomize());
+        $display("a=%0d b=%0d sum=%0d" , tr.a , tr.b , tr.sum);
+end
+endmodule
+
