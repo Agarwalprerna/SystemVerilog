@@ -1,0 +1,51 @@
+class transaction;
+    //suppose DUT performs addition
+
+  rand bit [7:0] a ;
+  rand bit [7:0] b;
+
+   bit [8:0] actual;
+endclass
+
+
+class scoreboard;
+
+    mailbox #(transaction) m2s;
+
+function new( mailbox #(transaction) m2s);
+    this.m2s = m2s;
+endfunction
+
+ transaction tr;
+int pass_cnt;
+int fail_cnt;
+
+
+task run();
+
+      bit [8:0] expected;
+
+      forever begin
+          m2s.get(tr);   //transaction get from mailbox 
+
+          //compute using reference model
+          expected = tr.a + tr.b;
+
+          //comapre
+           if( expected == tr.actual)begin
+             pass_cnt++;
+             $display("[PASS] a =%0d b=%0d exp=%0d actual=%0d" , tr.a,tr.b , expected , tr.actual);
+           end 
+           else begin
+              fail_cnt++;
+              $display("[FAIL] a=%0d b=%0d exp=%0d actual=%0d" , tr.a ,tr.b , expected , tr.actual);
+           end
+      end
+endtask
+
+
+ function void report();
+          $display("PASS COUNT = %0d  FAIL COUNT=%0d", pass_cnt , fail_cnt);
+endfunction
+endclass
+
