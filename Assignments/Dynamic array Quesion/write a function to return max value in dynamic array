@@ -1,0 +1,11 @@
+
+function int get_max( input int arr[]);
+     int max = arr[0];
+
+    foreach(arr[i])
+       if(arr[i] > max)
+         max = arr[i];
+
+ return max;
+
+endfunction
