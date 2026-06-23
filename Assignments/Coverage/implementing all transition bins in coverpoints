@@ -1,0 +1,27 @@
+
+module tb;
+     logic clk;
+        //FSM state representation
+        typedef enum { IDLE,REQ,GRANT,DONE} state_e;
+
+         state_e state;
+
+   covergroup fsm_cg @(posedge clk);
+
+       cp_state: coverpoint state{
+            bins T1 = (GRANT=>DONE);   //single transition
+            bins T2 = ( IDLE , REQ => GRANT ,DONE)  //set of transition
+            bins T3 = (REQ=> DONE) , (REQ=>GRANT=>DONE) ;  //sequence of transition
+            bins wildcard_trans = (IDLE => *);
+       }
+   endgroup
+
+    fsm_cg cg_inst = new();
+
+   initial begin
+          cg_inst.sample();
+          $display("COVERAGE = %.2f%%" . cg_inst.get_coverage());
+   end
+
+    endmodule
+
