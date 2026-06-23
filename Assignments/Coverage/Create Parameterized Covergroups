@@ -1,0 +1,16 @@
+
+//covergroups can accept arguments to create configurable coverage points:
+
+
+covergroup addr_cov(int LOW, int HIGH ,string name) @(posedge clk);
+   cp_addr: coverpoint addr{
+          bins low_range = {[LOW: LOW + (HIGH-LOW)/2]};
+          bins high_range = {[LOW + (HIGH-LOW)/2 + 1: HIGH]};
+   }
+
+endgroup
+
+//multiple instances with different parameters
+
+addr_cov OBJ1 = new(0,'hFF,"ROM");
+addr_cov OBJ2 = new('h50 , 'hFFFF, "RAM");
