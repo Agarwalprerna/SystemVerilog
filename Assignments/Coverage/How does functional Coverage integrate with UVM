@@ -1,0 +1,36 @@
+
+// In UVM . coverage is collected in a subscriber (monitor) component using analysis port
+
+class my_coverage extends uvm_subscriber #(packet);
+
+packet tr;//handle
+
+covergroup cg;
+
+  cp_op: coverpoint tr.operation {
+
+      bins read  =  {0};
+      bins write = {1};
+ }
+
+  cp_addr_range: coverpoint tr.addr{
+      bins low = {[0:150]};
+      bins mid = {[151:170]};
+      bins high = {[171:255]};
+  }
+
+  cross1: cross cp_op , cp_addr_range;
+
+endgroup
+
+ function new(string name , uvm_component_parent);
+      super.new(name , parent);
+      cg cg_inst = new();   //instantiate covergroup
+endfunction
+
+function void write(packet tr);
+ cg_inst.sample();  //call when monitor sends transaction
+endfunction
+
+endclass
+
