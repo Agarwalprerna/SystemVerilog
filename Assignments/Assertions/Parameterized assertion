@@ -1,0 +1,17 @@
+
+//parameterized property
+
+property p_req_ack #( int MIN=1 , int MAX = 8);
+  @(posedge clk) disable iff(!rst_n)
+req |-> ##[MIN:MAX] ack;
+endproperty
+
+//parameterized sequence
+sequence s_pulse #(int MIN_W = 2 , int MAX_W = 8);
+  sig ##1 sig[*MIN_W:MAX_W] ##1 !sig;
+endsequence
+
+
+//instantiate
+ass_req_ack : assert property(p_req_ack #(1,4));
+ass_s_pulse: assert property(p_req_ack #(1.16));
