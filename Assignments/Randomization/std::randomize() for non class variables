@@ -1,0 +1,16 @@
+module tb;
+    logic [7:0] addr;
+    int size;
+
+
+    initial begin
+        if(!std.randomize(addr,size) with {
+              addr inside {[8'h10:8'hFF]};
+              size inside {[1:16]};
+              })
+        $error("failed");
+
+        $display("addr =%0h size =%0d" , addr,size);
+        end
+ endmodule
+ 
