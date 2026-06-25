@@ -1,0 +1,15 @@
+soft constraint are lower priority cosntraints that can be overriden by derived class
+
+class basepacket;
+ rnad int size;
+
+ constraint default { soft size == 64 ;}
+
+endclass
+
+class largepacket extends basepacket;
+  //overrides soft constraint
+
+ constraint largesize { size == 1500 ;}
+//default size is 'soft' so no conflict
+endclass
